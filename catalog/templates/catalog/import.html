@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load catalog_extras %}
 
 {% block boundsClass %}
     <div class="bounds bounds--small">{% endblock %}
@@ -6,8 +7,10 @@
 {% block content %}
     This is the Catalog IMPORT page.
     <br><hr><br>
+    <p>There are {% item_count minerals %} records in total.</p>
     {% for mineral in minerals %}
         <div>{{ mineral.name }}</div>
          <div>{{ mineral.image_caption }}</div>
+         <div>{{ mineral.refractive_index }}</div>
     {% endfor %}
 {% endblock %}
