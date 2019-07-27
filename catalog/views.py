@@ -3,6 +3,7 @@
 from django.shortcuts import render
 
 from .models import Mineral
+from .data_processing import get_data
 
 def mineral_list(request):
     """Mineral list view."""
@@ -14,4 +15,5 @@ def mineral_detail(request):
 
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
-    return render(request, 'catalog/import.html')
+    context = {'minerals': get_data()}
+    return render(request, 'catalog/import.html', context)
