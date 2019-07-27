@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% block boundsClass %}<div class="bounds">{% endblock %}
+{% block importLink %}<p class="logo__text text-centered"><a href="{%  url 'catalog:import' %}">Import data</a></p>{% endblock %}
 {% block content %}
 This is the Catalog index page.
 {% endblock %}

@@ -11,3 +11,7 @@ def mineral_list(request):
 def mineral_detail(request):
     """Mineral detail view."""
     return render(request, 'catalog/detail.html')
+
+def import_minerals(request):
+    """Import all minerals from JSON to DB."""
+    return render(request, 'catalog/import.html')
