@@ -19,7 +19,6 @@ def mineral_detail(request):
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
     minerals_json = get_data()
-    error = "dave"
     context = {'minerals_json': minerals_json,}
-    messages.add_message(request, messages.WARNING, error)
+    messages.add_message(request, messages.WARNING, 'warning')
     return render(request, 'catalog/import.html', context)

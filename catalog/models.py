@@ -69,6 +69,5 @@ class Mineral(models.Model):
                 )
             except IntegrityError as e:
                 print("error: {}".format(e))
-                # messages.error( str(e))
                 pass
 
