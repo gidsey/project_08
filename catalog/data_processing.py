@@ -4,18 +4,6 @@ import json
 import os
 
 from .models import Mineral
-from django.db import IntegrityError
-
-# class Dataholder(List, data_list):
-#     """Process the JSON data"""
-#
-#     self.data_list = data_list
-#
-#     def __str__(self):
-#         """Return a string."""
-#         return self.data_list
-#
-
 
 def get_data():
     """Get the data from JSON"""
@@ -23,20 +11,27 @@ def get_data():
     try:
         with open(data_source) as file:
             minerals_json = json.load(file)
-            save_data(minerals_json)
+            Mineral.add_mineral(minerals_json)
             return minerals_json
     except ConnectionResetError:
         pass
 
 
-def save_data(minerals_json):
-    """Write to the db."""
-    for mineral in minerals_json:
-        print(mineral)
-        try:
-            Mineral.add_mineral(mineral)
-        except KeyError:
-            pass
-        except IntegrityError:
-            pass
-            # raise ValueError("The mineral already exists in the database.")
+# def save_data(minerals_json):
+#     """Write to the db."""
+#     records = 0
+#     recordsoutsidetryloop = 0
+#
+#     for mineral in minerals_json:
+#         recordsoutsidetryloop +=1
+#         print('recordsoutsidetryloop: {}'.format(recordsoutsidetryloop))
+#         try:
+#             Mineral.add_mineral(mineral)
+#             records += 1
+#             print ('records: {}'.format(records))
+#         except KeyError as error:
+#             print('error: {}'.format(error))
+#             error = mineral.get('error')
+#         except IntegrityError:
+#             pass
+#             # raise ValueError("The mineral already exists in the database.")

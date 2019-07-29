@@ -5,6 +5,7 @@ from django.db import IntegrityError
 
 class Mineral(models.Model):
     """Define the Mineral model."""
+
     name = models.CharField(max_length=255, unique=True)
     image_filename = models.CharField(max_length=255)
     image_caption = models.TextField()
@@ -36,27 +37,33 @@ class Mineral(models.Model):
         ordering = ['name']
 
     @classmethod
-    def add_mineral(cls, mineral):
+    def add_mineral(cls, minerals):
         """Add the data."""
-        cls.objects.create(
-            name=mineral['name'],
-            image_filename=mineral['image_filename'],
-            image_caption=mineral['image_caption'],
-            category=mineral['category'],
-            formula=mineral['formula'],
-            strunz_classification=mineral['strunz_classification'],
-            color=mineral['color'],
-            crystal_system=mineral['crystal_system'],
-            unit_cell=mineral['unit_cell'],
-            crystal_symmetry=mineral['crystal_symmetry'],
-            cleavage=mineral['cleavage'],
-            mohs_scale_hardness=mineral['mohs_scale_hardness'],
-            luster=mineral['luster'],
-            streak=mineral['streak'],
-            diaphaneity=mineral['diaphaneity'],
-            optical_properties=mineral['optical_properties'],
-            refractive_index=mineral['refractive_index'],
-            crystal_habit=mineral['crystal_habit'],
-            specific_gravity=mineral['specific_gravity'],
-            group=mineral['group'],
-        )
+        for mineral in minerals:
+            try:
+                cls.objects.create(
+                    name=mineral.get('name', ''),
+                    image_filename=mineral.get('image_filename', ''),
+                    image_caption=mineral.get('image_caption', ''),
+                    category=mineral.get('category', ''),
+                    formula=mineral.get('formula', ''),
+                    strunz_classification=mineral.get('strunz_classification', ''),
+                    color=mineral.get('color', ''),
+                    crystal_system=mineral.get('crystal_system', ''),
+                    unit_cell=mineral.get('unit_cell', ''),
+                    crystal_symmetry=mineral.get('crystal_symmetry', ''),
+                    cleavage=mineral.get('cleavage', ''),
+                    mohs_scale_hardness=mineral.get('mohs_scale_hardness', ''),
+                    luster=mineral.get('luster', ''),
+                    streak=mineral.get('streak', ''),
+                    diaphaneity=mineral.get('diaphaneity', ''),
+                    optical_properties=mineral.get('optical_properties', ''),
+                    refractive_index=mineral.get('refractive_index', ''),
+                    crystal_habit=mineral.get('crystal_habit', ''),
+                    specific_gravity=mineral.get('specific_gravity', ''),
+                    group=mineral.get('group', ''),
+                )
+            except IntegrityError as error:
+                print("error: {}".format(error))
+                pass
+
