@@ -67,7 +67,7 @@ class Mineral(models.Model):
                     specific_gravity=mineral.get('specific_gravity', ''),
                     group=mineral.get('group', ''),
                 )
-            except IntegrityError as e:
-                print("error: {}".format(e))
+            except IntegrityError as error:
+                print("error: {} for {}".format(error, mineral['name']))
                 pass
 
