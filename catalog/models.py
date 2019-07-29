@@ -3,6 +3,10 @@
 from django.db import models
 from django.db import IntegrityError
 
+
+from django.contrib import messages
+
+
 class Mineral(models.Model):
     """Define the Mineral model."""
 
@@ -63,7 +67,8 @@ class Mineral(models.Model):
                     specific_gravity=mineral.get('specific_gravity', ''),
                     group=mineral.get('group', ''),
                 )
-            except IntegrityError as error:
-                print("error: {}".format(error))
+            except IntegrityError as e:
+                print("error: {}".format(e))
+                # messages.error( str(e))
                 pass
 

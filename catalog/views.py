@@ -1,6 +1,7 @@
 """Catalog Views."""
 
 from django.shortcuts import render
+from django.contrib import messages
 
 from .models import Mineral
 from .data_processing import get_data
@@ -18,5 +19,7 @@ def mineral_detail(request):
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
     minerals_json = get_data()
-    context = {'minerals_json': minerals_json}
+    error = "dave"
+    context = {'minerals_json': minerals_json,}
+    messages.add_message(request, messages.WARNING, error)
     return render(request, 'catalog/import.html', context)
