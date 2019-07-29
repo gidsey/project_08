@@ -7,7 +7,9 @@ from .data_processing import get_data
 
 def mineral_list(request):
     """Mineral list view."""
-    return render(request, 'catalog/index.html')
+    minerals = Mineral.objects.all()
+    context = {'minerals': minerals}
+    return render(request, 'catalog/index.html', context)
 
 def mineral_detail(request):
     """Mineral detail view."""
@@ -15,6 +17,6 @@ def mineral_detail(request):
 
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
-    minerals = get_data()
-    context = {'minerals': minerals}
+    minerals_json = get_data()
+    context = {'minerals_json': minerals_json}
     return render(request, 'catalog/import.html', context)

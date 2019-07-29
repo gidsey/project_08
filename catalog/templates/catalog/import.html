@@ -6,11 +6,12 @@
 
 {% block content %}
     This is the Catalog IMPORT page.
-    <br><hr><br>
-    <p>There are {% item_count minerals %} records in total.</p>
-    {% for mineral in minerals %}
-        <div>{{ mineral.name }}</div>
-         <div>{{ mineral.image_caption }}</div>
-         <div>{{ mineral.refractive_index }}</div>
-    {% endfor %}
+    <br>
+    <hr><br>
+    <p>There are {% item_count minerals_json %} records in total.</p>
+    <ol>
+        {% for mineral in minerals_json %}
+            <li>{{ mineral.name }}</li>
+        {% endfor %}
+    </ol>
 {% endblock %}
