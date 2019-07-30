@@ -6,4 +6,3 @@ register = template.Library()
 def item_count(item):
     """Return the number of items in a list."""
     return len(item)
-
