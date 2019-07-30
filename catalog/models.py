@@ -3,8 +3,7 @@
 from django.db import models
 from django.db import IntegrityError
 
-
-from django.contrib import messages
+from django.shortcuts import redirect
 
 
 class Mineral(models.Model):
@@ -43,6 +42,7 @@ class Mineral(models.Model):
     @classmethod
     def add_mineral(cls, minerals):
         """Add the data."""
+        errors = []
         for mineral in minerals:
             try:
                 cls.objects.create(
@@ -68,6 +68,10 @@ class Mineral(models.Model):
                     group=mineral.get('group', ''),
                 )
             except IntegrityError as error:
-                print("error: {} for {}".format(error, mineral['name']))
+                errors.append(str(error) + ': ' + str(mineral['name']))
+                # print("error: {} for {}".format(error, mineral['name']))
                 pass
+        print("add_mineral complete with {}".format(errors))
+        return redirect('views.import_result', errors=errors)
+
 

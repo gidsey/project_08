@@ -27,15 +27,6 @@
     <p class="logo__text text-centered">So much more than rocks.</p>
     {% block importLink %}{% endblock %}
 </div>
-{% if messages %}
-    <div>
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message|safe }}
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
 {% block content %}{% endblock %}
 
 </div>
