@@ -2,13 +2,15 @@
 
 {% block boundsClass %}<div class="bounds">{% endblock %}
 {% block importLink %}
-    <p class="logo__text text-centered"><a href="{% url 'catalog:import' %}">Import data</a></p>{% endblock %}
+    <p class="info text-centered"><a href="{% url 'catalog:import' %}">Import data</a></p>{% endblock %}
 {% block content %}
-    <p>This is the Catalog index page.</p>
-    <p>Total: {{ minerals.count }} minerals in Database.</p>
-    <ol>
+    <p class="info text-centered">Total: {{ minerals.count }} minerals in database</p>
+    <div class="grid-100">
+        <ul class="minerals__container">
         {% for mineral in minerals %}
-            <li>{{ mineral }}</li>
+            <li class="minerals__item">
+                 <a class="minerals__anchor" href="{% url 'catalog:detail' pk=mineral.pk%}">{{ mineral }}</a></li>
         {% endfor %}
-    </ol>
+    </ul>
+    </div>
 {% endblock %}

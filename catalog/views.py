@@ -1,19 +1,22 @@
 """Catalog Views."""
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
 
 from .models import Mineral
 from .data_processing import get_data
 
 def mineral_list(request):
     """Mineral list view."""
-    minerals = Mineral.objects.all()
+    minerals = Mineral.objects.all().order_by('id')
     context = {'minerals': minerals}
     return render(request, 'catalog/index.html', context)
 
-def mineral_detail(request):
+def mineral_detail(request, pk):
     """Mineral detail view."""
-    return render(request, 'catalog/detail.html')
+    mineral = get_object_or_404(Mineral, pk=pk)
+    return render(request, 'catalog/detail.html', {'mineral': mineral})
+
 
 def import_minerals(request):
     """Import all minerals from JSON to DB."""

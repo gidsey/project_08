@@ -3,3 +3,14 @@
     color: red;
 }
 
+.info{
+    display: block;
+    margin-top: -22px;
+    font-size: 14px;
+    color: darkred;
+}
+
+.info a {
+    color: darkred;
+    text-decoration: underline;
+}
