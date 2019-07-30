@@ -39,6 +39,14 @@ class Mineral(models.Model):
 
         ordering = ['name']
 
+    def get_fields(self):
+        """Returns a list of all field names on the instance."""
+        field_list = []
+        for field in self._meta.get_fields():
+            field_list.append((field.name, getattr(self, field.name)))
+            # field_list.append(field.name)
+        return field_list
+
     @classmethod
     def add_mineral(cls, minerals):
         """Add the data."""

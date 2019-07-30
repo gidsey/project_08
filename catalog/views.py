@@ -15,7 +15,8 @@ def mineral_list(request):
 def mineral_detail(request, pk):
     """Mineral detail view."""
     mineral = get_object_or_404(Mineral, pk=pk)
-    return render(request, 'catalog/detail.html', {'mineral': mineral})
+    field_list = mineral.get_fields()
+    return render(request, 'catalog/detail.html', {'mineral': mineral, 'field_list': field_list})
 
 
 def import_minerals(request):
