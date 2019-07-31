@@ -40,16 +40,13 @@ class Mineral(models.Model):
         ordering = ['name']
 
     def get_fields(self):
-        """Returns a list of all field names on the instance."""
+        """Returns a list with a dictionary of all field names on the instance."""
         field_list = []
         for field in self._meta.get_fields():
             field_list.append(
                 {field.name: getattr(self, field.name)}
             )
-
-
-            # field_list.append((field.name, getattr(self, field.name)))
-            # field_list.append(field.name)
+        del field_list[0:4]  # remove unnecessary fields
         return field_list
 
     @classmethod

@@ -18,7 +18,6 @@ def mineral_detail(request, pk):
     field_list = mineral.get_fields()
     return render(request, 'catalog/detail.html', {'mineral': mineral, 'field_list': field_list})
 
-
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
     minerals_json = get_data()
