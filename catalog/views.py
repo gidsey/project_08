@@ -4,12 +4,13 @@ from django.shortcuts import render, get_object_or_404
 
 
 from .models import Mineral
-from .data_processing import get_data
+from .data_processing import get_data, get_popular
 
 def mineral_list(request):
     """Mineral list view."""
     minerals = Mineral.objects.all().order_by('id')
-    context = {'minerals': minerals}
+    field_popularity = get_popular()
+    context = {'minerals': minerals, 'field_popularity': field_popularity}
     return render(request, 'catalog/index.html', context)
 
 def mineral_detail(request, pk):
