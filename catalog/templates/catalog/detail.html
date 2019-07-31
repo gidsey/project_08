@@ -2,8 +2,6 @@
 {% load catalog_extras %}
 {% load static from staticfiles %}
 
-
-
 {% block boundsClass %}
     <div class="bounds bounds--small">{% endblock %}
 
@@ -12,16 +10,16 @@
         <h1 class="mineral__name">{{ mineral.name }}</h1>
         <div class="mineral__image-bg">
             <img class="mineral__image" src="{% static 'images/' %}{{ mineral.image_filename }}">
-            <p class="mineral__caption">{{ mineral.image_caption }}</p>
+            <p class="mineral__caption">{{ mineral.image_caption|safe }}</p>
         </div>
 
         <div class="mineral__table-container">
             <table class="mineral__table">
-                {% for dict in field_list %}
-                    {% for name, content in dict.items %}
+                {% for field in field_list %}
+                    {% for name, content in field.items %}
                         {%  if content %}
                         <tr>
-                            <td class="mineral__category">{{ name|underscore_to_space|title }}</td>
+                            <td class="mineral__category">{{ name|safe|underscore_to_space|title }}</td>
                             <td>{{ content|safe }}</td>
                         </tr>
                         {%  endif %}
