@@ -19,10 +19,12 @@
             <table class="mineral__table">
                 {% for dict in field_list %}
                     {% for name, content in dict.items %}
+                        {%  if content %}
                         <tr>
                             <td class="mineral__category">{{ name|underscore_to_space|title }}</td>
                             <td>{{ content|safe }}</td>
                         </tr>
+                        {%  endif %}
                     {% endfor %}
                 {% endfor %}
             </table>
