@@ -18,7 +18,6 @@ class MineralModelTests(TestCase):
         )
         self.assertIn('.jpg', mineral.image_filename)
 
-
 class MineralViewsTests(TestCase):
     """Test the views."""
 

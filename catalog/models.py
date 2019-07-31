@@ -5,7 +5,6 @@ from django.db import IntegrityError
 
 from django.shortcuts import redirect
 
-
 class Mineral(models.Model):
     """Define the Mineral model."""
 
