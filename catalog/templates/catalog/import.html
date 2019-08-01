@@ -15,14 +15,11 @@
         <h3 class="mineral__name">Field popularity / occurrence count</h3>
         <div class="mineral__table-container">
             <table class="mineral__table">
-            {{ field_popularity }}
                 {% for field in field_popularity %}
-                    {% for field_name, count in field.items %}
                             <tr>
-                                <td class="mineral__category">{{ field_name|safe|underscore_to_space|title }}</td>
-                                <td class="text-centered">{{ count }}</td>
+                                <td class="mineral__category">{{ field.0|safe|underscore_to_space|title }}</td>
+                                <td class="text-centered">{{ field.1 }}</td>
                             </tr>
-                    {% endfor %}
                 {% endfor %}
             </table>
         </div>
