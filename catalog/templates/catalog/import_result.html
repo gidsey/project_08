@@ -8,11 +8,5 @@
 {% block content %}
     This is the Catalog IMPORT RESULT page.
     <br>
-    <hr><br>
-    <p>There are {% item_count minerals_json %} records in total.</p>
-    <ol>
-        {% for mineral in minerals_json %}
-            <li>{{ mineral.name }}</li>
-        {% endfor %}
-    </ol>
+   {{ errors }}
 {% endblock %}

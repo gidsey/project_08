@@ -2,8 +2,10 @@
 
 from django.db import models
 from django.db import IntegrityError
+from django.http import HttpResponseRedirect, request
 
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+
 
 class Mineral(models.Model):
     """Define the Mineral model."""
@@ -78,9 +80,6 @@ class Mineral(models.Model):
                 )
             except IntegrityError as error:
                 errors.append(str(error) + ': ' + str(mineral['name']))
-                # print("error: {} for {}".format(error, mineral['name']))
-                pass
-        print("add_mineral complete with {}".format(errors))
-        return redirect('views.import_result', errors=errors)
+        # print("add_mineral complete with {}".format(errors))
 
 
