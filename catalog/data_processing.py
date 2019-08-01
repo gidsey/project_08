@@ -42,11 +42,10 @@ def get_popular():
     pos = 1
     for field in popular_list:
         print(field[0])
-        Priority.objects.create \
-                (
-                field_name=field[0],
-                position=pos
-            )
+        Priority.objects.create(field_name=field[0], position=pos)
         pos += 1
-
     return popular_list
+
+# def get_prioity():
+#     """Return values from the lookup table"""
+#

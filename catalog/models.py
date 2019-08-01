@@ -48,6 +48,9 @@ class Mineral(models.Model):
                 {field.name: getattr(self, field.name)}
             )
         del field_list[0:4]  # remove unnecessary fields
+
+        # Order the field list here by the lookup table
+
         return field_list
 
     @classmethod

@@ -16,6 +16,7 @@ def mineral_detail(request, pk):
     """Mineral detail view."""
     mineral = get_object_or_404(Mineral, pk=pk)
     field_list = mineral.get_fields()
+    # priority = get_prioity()
     return render(request, 'catalog/detail.html',
                   {'mineral': mineral, 'field_list': field_list})
 
