@@ -3,8 +3,9 @@
 import json
 import os
 
-from .models import Mineral
+from .models import Mineral, Priority
 from operator import itemgetter
+
 
 def get_data():
     """Get the data from JSON"""
@@ -20,24 +21,6 @@ def get_data():
 
 def get_popular():
     """Return the fields listed in order of most used."""
-    # popular_list = [{'category': len(Mineral.objects.exclude(category=''))},
-    #                 {'formula': len(Mineral.objects.exclude(formula=''))},
-    #                 {'strunz_classification': len(Mineral.objects.exclude(strunz_classification=''))},
-    #                 {'color': len(Mineral.objects.exclude(color=''))},
-    #                 {'crystal_system': len(Mineral.objects.exclude(crystal_system=''))},
-    #                 {'unit_cell': len(Mineral.objects.exclude(unit_cell=''))},
-    #                 {'crystal_symmetry': len(Mineral.objects.exclude(crystal_symmetry=''))},
-    #                 {'cleavage': len(Mineral.objects.exclude(cleavage=''))},
-    #                 {'mohs_scale_hardness': len(Mineral.objects.exclude(mohs_scale_hardness=''))},
-    #                 {'luster': len(Mineral.objects.exclude(luster=''))},
-    #                 {'streak': len(Mineral.objects.exclude(streak=''))},
-    #                 {'diaphaneity': len(Mineral.objects.exclude(diaphaneity=''))},
-    #                 {'optical_properties': len(Mineral.objects.exclude(optical_properties=''))},
-    #                 {'refractive_index': len(Mineral.objects.exclude(refractive_index=''))},
-    #                 {'crystal_habit': len(Mineral.objects.exclude(crystal_habit=''))},
-    #                 {'specific_gravity': len(Mineral.objects.exclude(specific_gravity=''))},
-    #                 {'group': len(Mineral.objects.exclude(group=''))}]
-
     popular_list = [('category', len(Mineral.objects.exclude(category=''))),
                     ('formula', len(Mineral.objects.exclude(formula=''))),
                     ('strunz_classification', len(Mineral.objects.exclude(strunz_classification=''))),
@@ -55,5 +38,15 @@ def get_popular():
                     ('crystal_habit', len(Mineral.objects.exclude(crystal_habit=''))),
                     ('specific_gravity', len(Mineral.objects.exclude(specific_gravity=''))),
                     ('group', len(Mineral.objects.exclude(group='')))]
-    popular_list.sort(key=itemgetter(1), reverse = True)
+    popular_list.sort(key=itemgetter(1), reverse=True)  # Sort the list
+    pos = 1
+    for field in popular_list:
+        print(field[0])
+        Priority.objects.create \
+                (
+                field_name=field[0],
+                position=pos
+            )
+        pos += 1
+
     return popular_list

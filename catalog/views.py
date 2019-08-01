@@ -21,7 +21,6 @@ def mineral_detail(request, pk):
 
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
-    errors=None
     minerals_json_count = get_data()
     minerals = Mineral.objects.all().order_by('id')
     field_popularity = get_popular()

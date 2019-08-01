@@ -83,3 +83,8 @@ class Mineral(models.Model):
         # print("add_mineral complete with {}".format(errors))
 
 
+class Priority(models.Model):
+    """Define the Priority lookup model."""
+    field_name = models.CharField(max_length=255, unique=True)
+    position = models.IntegerField(default=0)
+
