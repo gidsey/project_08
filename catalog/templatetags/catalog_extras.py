@@ -8,9 +8,9 @@ from ..models import Mineral
 register = template.Library()
 
 @register.simple_tag
-def item_count(item):
-    """Return the number of items in a list."""
-    return len(item)
+def subtraction(num1, num2):
+    """Subtract an Return the result"""
+    return num1 - num2
 
 @register.filter('random_mineral')
 def random_mineral(x):

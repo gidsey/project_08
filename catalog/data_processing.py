@@ -13,7 +13,7 @@ def get_data():
         with open(data_source) as file:
             minerals_json = json.load(file)
             Mineral.add_mineral(minerals_json)
-            return minerals_json
+            return len(minerals_json)
     except ConnectionResetError:
         pass
 

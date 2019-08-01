@@ -21,11 +21,11 @@ def mineral_detail(request, pk):
 
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
-    minerals_json = get_data()
+    minerals_json_count = get_data()
     minerals = Mineral.objects.all().order_by('id')
     field_popularity = get_popular()
     return render(request, 'catalog/import.html',
-                  {'minerals_json': minerals_json, 'minerals': minerals, 'field_popularity': field_popularity})
+                  {'minerals_json_count': minerals_json_count, 'minerals': minerals, 'field_popularity': field_popularity})
 
 def import_result(request, errors):
     """Show the results of the import including any errors"""

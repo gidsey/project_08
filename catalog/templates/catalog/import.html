@@ -8,9 +8,9 @@
 {% block content %}
     <div class="grid-100 mineral__container">
         <h1 class="mineral__name">Import result</h1>
-        <p>{% item_count minerals_json %} records retrieved from 'minerals.json'.</p>
+        <p>{{ minerals_json_count }} records retrieved from 'minerals.json'.</p>
         <p>{{ minerals.count }} records added to Martha's Minerals database.<br>
-            <span class="warning">X duplicate records removed.</span>
+            <span class="warning">{% subtraction minerals_json_count minerals.count %} duplicate records removed.</span>
         </p>
         <h3 class="mineral__name">Field popularity / occurrence count</h3>
         <div class="mineral__table-container">
