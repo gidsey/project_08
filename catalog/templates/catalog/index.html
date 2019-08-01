@@ -4,9 +4,7 @@
 {% block importLink %}
     <p class="info text-centered"><a href="{% url 'catalog:import' %}">Import data</a></p>{% endblock %}
 {% block content %}
-    <p class="info text-centered">Total: {{ minerals.count }} minerals in database</p>
     <div class="grid-100">
-    {{ field_popularity }}
         <ul class="minerals__container">
         {% for mineral in minerals %}
             <li class="minerals__item">

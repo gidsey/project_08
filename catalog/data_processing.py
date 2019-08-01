@@ -20,11 +20,8 @@ def get_data():
 
 def get_popular():
     """Return the fields listed in order of most used."""
-    pop_list = []
-    count_list = []
-    mineral_fields = Mineral._meta.get_fields()
-    for field in mineral_fields:
-        pop_list.append(field.name)
-    for f in pop_list:
-        count_list.append(f)
-    return count_list
+
+    popular_list=[({'category': len(Mineral.objects.exclude(category=''))})]
+    popular_list.append({'color': len(Mineral.objects.exclude(color=''))})
+    popular_list.append({'specific_gravity': len(Mineral.objects.exclude(specific_gravity=''))})
+    return popular_list

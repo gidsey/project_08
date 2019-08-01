@@ -6,13 +6,14 @@
 {% endblock %}
 
 {% block content %}
-    This is the Catalog IMPORT page.
-    <br>
-    <hr><br>
-    <p>There are {% item_count minerals_json %} records in total.</p>
-    <ol>
-        {% for mineral in minerals_json %}
-            <li>{{ mineral.name }}</li>
-        {% endfor %}
-    </ol>
+    <div class="grid-100 mineral__container">
+       <h1 class="mineral__name">Import result</h1>
+        <p>{% item_count minerals_json %} records retrieved from 'minerals.json'.</p>
+        <p>{{ minerals.count }} records added to Martha's Minerals database.<br>
+            <span class="warning">X duplicate records removed.</span>
+        </p>
+        <h3 class="mineral__name">Field popularity / occurrence count</h3>
+
+        {{ field_popularity }}
+    </div>
 {% endblock %}

@@ -12,7 +12,6 @@
             <img class="mineral__image" src="{% static 'images/' %}{{ mineral.image_filename }}">
             <p class="mineral__caption">{{ mineral.image_caption|safe }}</p>
         </div>
-
         <div class="mineral__table-container">
             <table class="mineral__table">
                 {% for field in field_list %}
