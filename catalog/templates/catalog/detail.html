@@ -11,19 +11,23 @@
         <div class="mineral__image-bg">
             <img class="mineral__image" src="{% static 'images/' %}{{ mineral.image_filename }}">
             {% if mineral.image_caption %}
-            <p class="mineral__caption caption_highlight">{{ mineral.image_caption|safe }}</p>
+                <p class="mineral__caption caption_highlight">{{ mineral.image_caption|safe }}</p>
             {% endif %}
         </div>
         <div class="mineral__table-container">
             <table class="mineral__table">
                 {% for field in field_list %}
                     {% for name, content in field.items %}
-                        {%  if content %}
-                        <tr>
-                            <td class="mineral__category">{{ name|safe|underscore_to_space|title }}</td>
-                            <td>{{ content|safe }}</td>
-                        </tr>
-                        {%  endif %}
+                        {% if content %}
+                            <tr {% if 'group' in name %}class="group-highlight"{% endif %}>
+                                <td class="mineral__category">
+                                    {{ name|safe|underscore_to_space|title }}
+                                </td>
+                                <td>
+                                    {{ content|safe }}
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 {% endfor %}
             </table>

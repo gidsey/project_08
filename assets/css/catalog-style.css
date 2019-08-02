@@ -18,3 +18,11 @@
 .caption_highlight {
     padding: 30px 20px 12px 20px;
 }
+
+.group-highlight {
+    height: 100px;
+    font-weight: bold;
+    text-align: center;
+    color: darkred;
+    font-size: 16px;
+}
