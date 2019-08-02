@@ -35,10 +35,10 @@ class Mineral(models.Model):
 
         ordering = ['name']
 
-    def get_fields(self, popular_list):
+    def get_fields(self, ordered_fields):
         """Returns a list with a dictionary of all field names on the instance."""
         field_list = []
-        for field in popular_list:
+        for field in ordered_fields:
             field_list.append(
                 {field[0]: getattr(self, field[0])}
             )

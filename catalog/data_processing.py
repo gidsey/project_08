@@ -21,7 +21,8 @@ def get_data():
 
 def get_popular():
     """Return the fields listed in order of most used."""
-    popular_list = [('category', len(Mineral.objects.exclude(category=''))),
+
+    ordered_fields = [('category', len(Mineral.objects.exclude(category=''))),
                     ('formula', len(Mineral.objects.exclude(formula=''))),
                     ('strunz_classification', len(Mineral.objects.exclude(strunz_classification=''))),
                     ('color', len(Mineral.objects.exclude(color=''))),
@@ -38,5 +39,5 @@ def get_popular():
                     ('crystal_habit', len(Mineral.objects.exclude(crystal_habit=''))),
                     ('specific_gravity', len(Mineral.objects.exclude(specific_gravity=''))),
                     ('group', len(Mineral.objects.exclude(group='')))]
-    popular_list.sort(key=itemgetter(1), reverse=True)  # Sort the list
-    return popular_list
+    ordered_fields.sort(key=itemgetter(1), reverse=True)  # Sort the list
+    return ordered_fields
