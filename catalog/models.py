@@ -38,7 +38,27 @@ class Mineral(models.Model):
     class Meta:
         """Define the ordering."""
 
-        ordering = ['name']
+        ordering = [
+            'name',
+            'image_filename',
+            'image_caption',
+            'group',
+            'formula',
+            'category',
+            'strunz_classification',
+            'mohs_scale_hardness',
+            'luster',
+            'color',
+            'specific_gravity',
+            'cleavage',
+            'diaphaneity',
+            'crystal_habit',
+            'streak',
+            'optical_properties',
+            'refractive_index',
+            'unit_cell',
+            'crystal_symmetry'
+        ]
 
     def get_fields(self):
         """Returns a list with a dictionary of all field names on the instance."""

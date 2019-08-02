@@ -3,21 +3,11 @@
 ## Mineral Catalog
 
 ### Description
-xxx
+Mineral database built using Django and Sqlite.
 
-### Installation and use
-This project has been built using xxx
-
-To run the app, launch 'app.py' in the shell and access the site at http://127.0.0.1:8000/ in your browser. xxx
-
-Please note the following
-* xxx
-* xxx
-* xxx
-* xxx
-* xxx
-
+### Installation 
+Package requirements for the project are outlined in the 'requirements.txt' file.'
 
 ### Known issues
-* xxxxy
+
 

@@ -48,5 +48,6 @@ def get_popular():
             Priority.objects.create(field_name=field[0], position=pos)
             pos += 1
         except IntegrityError:
+            #  Update the record here
             pass
     return popular_list
