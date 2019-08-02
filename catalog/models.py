@@ -2,10 +2,6 @@
 
 from django.db import models
 from django.db import IntegrityError
-from django.http import HttpResponseRedirect, request
-
-from django.shortcuts import redirect, render
-
 
 class Mineral(models.Model):
     """Define the Mineral model."""
@@ -38,27 +34,7 @@ class Mineral(models.Model):
     class Meta:
         """Define the ordering."""
 
-        ordering = [
-            'name',
-            'image_filename',
-            'image_caption',
-            'group',
-            'formula',
-            'category',
-            'strunz_classification',
-            'mohs_scale_hardness',
-            'luster',
-            'color',
-            'specific_gravity',
-            'cleavage',
-            'diaphaneity',
-            'crystal_habit',
-            'streak',
-            'optical_properties',
-            'refractive_index',
-            'unit_cell',
-            'crystal_symmetry'
-        ]
+        ordering = ['name',]
 
     def get_fields(self):
         """Returns a list with a dictionary of all field names on the instance."""
@@ -67,7 +43,7 @@ class Mineral(models.Model):
             field_list.append(
                 {field.name: getattr(self, field.name)}
             )
-        del field_list[0:4]  # remove unnecessary fields
+        del field_list[0:4]  # remove non-detail fields
         return field_list
 
     @classmethod
@@ -103,8 +79,6 @@ class Mineral(models.Model):
         # print("add_mineral complete with {}".format(errors))
 
 
-class Priority(models.Model):
-    """Define the Priority lookup model."""
-    field_name = models.CharField(max_length=255, unique=True)
-    position = models.IntegerField(default=0)
+
+
 
