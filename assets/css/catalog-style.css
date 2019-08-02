@@ -14,3 +14,7 @@
     color: darkred;
     text-decoration: underline;
 }
+
+.caption_highlight {
+    padding: 30px 20px 12px 20px;
+}

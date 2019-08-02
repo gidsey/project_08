@@ -10,7 +10,9 @@
         <h1 class="mineral__name">{{ mineral.name }}</h1>
         <div class="mineral__image-bg">
             <img class="mineral__image" src="{% static 'images/' %}{{ mineral.image_filename }}">
-            <p class="mineral__caption">{{ mineral.image_caption|safe }}</p>
+            {% if mineral.image_caption %}
+            <p class="mineral__caption caption_highlight">{{ mineral.image_caption|safe }}</p>
+            {% endif %}
         </div>
         <div class="mineral__table-container">
             <table class="mineral__table">
