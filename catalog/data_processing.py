@@ -3,6 +3,8 @@
 import json
 import os
 
+from django.db import IntegrityError
+
 from .models import Mineral, Priority
 from operator import itemgetter
 
@@ -21,6 +23,7 @@ def get_data():
 
 def get_popular():
     """Return the fields listed in order of most used."""
+    pos = 1
     popular_list = [('category', len(Mineral.objects.exclude(category=''))),
                     ('formula', len(Mineral.objects.exclude(formula=''))),
                     ('strunz_classification', len(Mineral.objects.exclude(strunz_classification=''))),
@@ -39,13 +42,11 @@ def get_popular():
                     ('specific_gravity', len(Mineral.objects.exclude(specific_gravity=''))),
                     ('group', len(Mineral.objects.exclude(group='')))]
     popular_list.sort(key=itemgetter(1), reverse=True)  # Sort the list
-    pos = 1
-    for field in popular_list:
-        print(field[0])
-        Priority.objects.create(field_name=field[0], position=pos)
-        pos += 1
-    return popular_list
 
-# def get_prioity():
-#     """Return values from the lookup table"""
-#
+    for field in popular_list:
+        try:
+            Priority.objects.create(field_name=field[0], position=pos)
+            pos += 1
+        except IntegrityError:
+            pass
+    return popular_list
