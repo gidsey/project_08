@@ -2,9 +2,9 @@
 
 import json
 import os
+from operator import itemgetter
 
 from .models import Mineral
-from operator import itemgetter
 
 
 def get_data():

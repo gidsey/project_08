@@ -1,5 +1,4 @@
 """Catalog Models."""
-
 from django.db import models
 from django.db import IntegrityError
 
@@ -34,16 +33,15 @@ class Mineral(models.Model):
     class Meta:
         """Define the ordering."""
 
-        ordering = ['name',]
+        ordering = ['name']
 
-    def get_fields(self):
+    def get_fields(self, popular_list):
         """Returns a list with a dictionary of all field names on the instance."""
         field_list = []
-        for field in self._meta.get_fields():
+        for field in popular_list:
             field_list.append(
-                {field.name: getattr(self, field.name)}
+                {field[0]: getattr(self, field[0])}
             )
-        del field_list[0:4]  # remove non-detail fields
         return field_list
 
     @classmethod

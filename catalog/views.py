@@ -15,8 +15,8 @@ def mineral_list(request):
 def mineral_detail(request, pk):
     """Mineral detail view."""
     mineral = get_object_or_404(Mineral, pk=pk)
-    field_list = mineral.get_fields()
-    # priority = get_prioity()
+    ordered_fields = get_popular()
+    field_list = mineral.get_fields(ordered_fields)
     return render(request, 'catalog/detail.html',
                   {'mineral': mineral, 'field_list': field_list})
 
@@ -24,13 +24,8 @@ def import_minerals(request):
     """Import all minerals from JSON to DB."""
     minerals_json_count = get_data()
     minerals = Mineral.objects.all().order_by('id')
-    field_popularity = get_popular()
+    ordered_fields = get_popular()
     return render(request, 'catalog/import.html',
                   {'minerals_json_count': minerals_json_count,
                    'minerals': minerals,
-                   'field_popularity': field_popularity})
-
-# def import_result(request, errors):
-#     """Show the results of the import including any errors"""
-#     context = {'errors': errors}
-#     return render(request, 'catalog/import_result.html', context)
+                   'ordered_fields': ordered_fields})
