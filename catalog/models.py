@@ -74,6 +74,8 @@ class Mineral(models.Model):
                 )
             except IntegrityError as error:
                 errors.append(str(error) + ': ' + str(mineral['name']))
+        return len(errors)
+
         # print("add_mineral complete with {}".format(errors))
 
 

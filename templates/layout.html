@@ -30,10 +30,11 @@
     {% block importLink %}{% endblock %}
 </div>
 {% block content %}{% endblock %}
-
 </div>
+{%  if mineral %}
 <div class="minerals__random">
     <a class="minerals__anchor" href="{% url 'catalog:detail' pk=x|random_mineral %}">Show random mineral</a>
 </div>
+{% endif %}
 </body>
 </html>

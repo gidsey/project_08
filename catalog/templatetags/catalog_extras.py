@@ -18,6 +18,7 @@ def random_mineral(x):
     mineral_ids = Mineral.objects.all().values_list('id', flat=True)
     return random.choice(mineral_ids)
 
+
 @register.filter('underscore_to_space')
 def underscore_to_space(input):
     """Removes underscore and replace with a SPACE"""

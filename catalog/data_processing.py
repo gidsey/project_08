@@ -8,13 +8,13 @@ from .models import Mineral
 
 
 def get_data():
-    """Get the data from JSON"""
+    """Get the data from JSON, write to the DB and return No. of records in JSOn file."""
     data_source = os.path.join(os.getcwd(), 'catalog/data/minerals.json')
     try:
         with open(data_source) as file:
             minerals_json = json.load(file)
-            Mineral.add_mineral(minerals_json)
-            return len(minerals_json)
+            errors = Mineral.add_mineral(minerals_json)
+            return [len(minerals_json), errors]
     except ConnectionResetError:
         pass
 

@@ -12,6 +12,7 @@
         <p>{{ minerals.count }} records added to Martha's Minerals database.<br>
             <span class="warning">{% subtraction minerals_json_count minerals.count %} duplicate records removed.</span>
         </p>
+    <div>Duplicate records found: {{ duplicate_count }}</div>
         <h3 class="mineral__name">Field popularity / occurrence count</h3>
         <div class="mineral__table-container">
             <table class="mineral__table">
@@ -22,6 +23,7 @@
                             </tr>
                 {% endfor %}
             </table>
+
         </div>
     </div>
 {% endblock %}

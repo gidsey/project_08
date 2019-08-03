@@ -39,3 +39,13 @@
 .import_button a {
     color: #000;
 }
+
+.info__container { background-color: #fff; border-radius: 6px; padding: 30px;}
+
+.b-link {
+    color: #996868;
+    text-decoration: underline;
+}
+.b-link a  {
+    text-decoration: underline;
+}

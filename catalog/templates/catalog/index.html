@@ -9,12 +9,21 @@
 {% endblock %}
 {% block content %}
     <div class="grid-100">
+        {% if mineral %}
         <ul class="minerals__container">
-            {% for mineral in minerals %}
-                <li class="minerals__item">
-                    <a class="minerals__anchor" href="{% url 'catalog:detail' pk=mineral.pk %}">{{ mineral|safe }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+
+                {% for mineral in minerals %}
+                    <li class="minerals__item">
+                        <a class="minerals__anchor"
+                           href="{% url 'catalog:detail' pk=mineral.pk %}">{{ mineral|safe }}</a>
+                    </li>
+                {% endfor %}</ul>
+            {% else %}
+                <div class="info__container">
+                <h2>Welcome</h2>
+                <p>The database is empty, click <a class="b-link" href="{% url 'catalog:import' %}">import data</a> to start.</p>
+            </div>
+            {% endif %}
+
     </div>
 {% endblock %}

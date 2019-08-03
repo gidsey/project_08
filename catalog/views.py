@@ -8,12 +8,15 @@ from .data_processing import get_data, get_popular
 
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
-    minerals_json_count = get_data()
+    data = get_data()
+    minerals_json_count = data[0]
+    duplicate_count = data[1]
     minerals = Mineral.objects.all().order_by('id')
     ordered_fields = get_popular()
     request.session['ordered_fields'] = ordered_fields
     return render(request, 'catalog/import.html',
                   {'minerals_json_count': minerals_json_count,
+                   'duplicate_count': duplicate_count,
                    'minerals': minerals,
                    'ordered_fields': ordered_fields})
 
