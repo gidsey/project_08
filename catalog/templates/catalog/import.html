@@ -15,9 +15,6 @@
         <h2>Status</h2>
         <p>{{ minerals.count }} records in Martha's Minerals database.<br>
             <a class="b-link" href="{% url 'catalog:list' %}">Click to continue</a></p>
-        {#            <span class="warning">{% subtraction minerals_json_count minerals.count %} duplicate records removed.</span>#}
-        {#        </p>#}
-        {#    <div>Duplicate records found: {{ duplicate_count }}</div>#}
         <hr>
         <h3 class="mineral__name">Field popularity / occurrence count</h3>
         <p>Listed below are all the fields included in the dataset,

@@ -7,17 +7,19 @@ from ..models import Mineral
 
 register = template.Library()
 
-# @register.simple_tag
-# def subtraction(num1, num2):
-#     """Subtract an Return the result"""
-#     return num1 - num2
-
 @register.simple_tag
 def import_report(minerals_json_count, duplicate_count):
     if minerals_json_count == duplicate_count:
         return 'No new records found.'
     else:
-        return "Records added successfully (" + str(duplicate_count) + " duplicates ignored)."
+        num_added = minerals_json_count - duplicate_count
+        if num_added > 1:
+            rec = ' records'
+        else:
+            rec = ' record'
+        return str(num_added) + rec +\
+            " added successfully (" + str(duplicate_count) +\
+            " duplicates ignored)."
 
 
 @register.filter('random_mineral')
