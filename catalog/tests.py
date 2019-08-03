@@ -85,3 +85,9 @@ class MineralViewsTests(TestCase):
         self.assertEqual(self.mineral, resp.context['mineral'])
         self.assertTemplateUsed(resp, 'catalog/detail.html')
         self.assertContains(resp, self.mineral.group)
+
+
+    def test_import_view(self):
+        """Test the index view."""
+        resp = self.client.get(reverse('catalog:import'))
+        self.assertEqual(resp.status_code, 200)

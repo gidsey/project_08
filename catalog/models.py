@@ -2,6 +2,7 @@
 from django.db import models
 from django.db import IntegrityError
 
+
 class Mineral(models.Model):
     """Define the Mineral model."""
 
@@ -47,10 +48,13 @@ class Mineral(models.Model):
     @classmethod
     def add_mineral(cls, minerals):
         """Add the data."""
-        errors = []
+        error = 0
         for mineral in minerals:
             try:
-                cls.objects.create(
+                obj = cls.objects.get(name=mineral.get('name', ''))
+                error += 1
+            except cls.DoesNotExist:
+                obj = cls(
                     name=mineral.get('name', ''),
                     image_filename=mineral.get('image_filename', ''),
                     image_caption=mineral.get('image_caption', ''),
@@ -72,13 +76,5 @@ class Mineral(models.Model):
                     specific_gravity=mineral.get('specific_gravity', ''),
                     group=mineral.get('group', ''),
                 )
-            except IntegrityError as error:
-                errors.append(str(error) + ': ' + str(mineral['name']))
-        return len(errors)
-
-        # print("add_mineral complete with {}".format(errors))
-
-
-
-
-
+                obj.save()
+        return error
