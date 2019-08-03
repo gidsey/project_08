@@ -8,22 +8,31 @@
 {% block content %}
     <div class="grid-100 mineral__container">
         <h1 class="mineral__name">Import result</h1>
-        <p>{{ minerals_json_count }} records retrieved from 'minerals.json'.</p>
-        <p>{{ minerals.count }} records added to Martha's Minerals database.<br>
-            <span class="warning">{% subtraction minerals_json_count minerals.count %} duplicate records removed.</span>
-        </p>
-    <div>Duplicate records found: {{ duplicate_count }}</div>
+        <p>{{ minerals_json_count }} records retrieved from 'minerals.json'. <br>
+            {% import_report minerals_json_count duplicate_count %}</p>
+
+        <br>
+        <h2>Status</h2>
+        <p>{{ minerals.count }} records in Martha's Minerals database.<br>
+            <a class="b-link" href="{% url 'catalog:list' %}">Click to continue</a></p>
+        {#            <span class="warning">{% subtraction minerals_json_count minerals.count %} duplicate records removed.</span>#}
+        {#        </p>#}
+        {#    <div>Duplicate records found: {{ duplicate_count }}</div>#}
+        <hr>
         <h3 class="mineral__name">Field popularity / occurrence count</h3>
+        <p>Listed below are all the fields included in the dataset,
+            together with the number of times that they are used.</p>
         <div class="mineral__table-container">
             <table class="mineral__table">
                 {% for field in ordered_fields %}
-                            <tr>
-                                <td class="mineral__category">{{ field.0|safe|underscore_to_space|title }}</td>
-                                <td class="text-centered">{{ field.1 }}</td>
-                            </tr>
+                    <tr>
+                        <td class="mineral__category">{{ field.0|safe|underscore_to_space|title }}</td>
+                        <td class="text-centered">{{ field.1 }}</td>
+                    </tr>
                 {% endfor %}
             </table>
-
+            <br>
+            <p><a class="b-link" href="{% url 'catalog:list' %}">Click to continue</a></p>
         </div>
     </div>
 {% endblock %}
