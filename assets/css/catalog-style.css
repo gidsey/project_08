@@ -22,7 +22,20 @@
 .group-highlight {
     height: 100px;
     font-weight: bold;
-    text-align: center;
-    color: darkred;
-    font-size: 16px;
+}
+
+.import{
+    margin: -20px auto 30px auto;
+    width: 20%;
+    min-width: 200px;
+    border-radius: 1px;
+}
+.import_button {
+    background-color: #9DB3A4;
+    border-radius: 14px;
+    border: 2px solid #996868;
+}
+
+.import_button a {
+    color: #000;
 }
