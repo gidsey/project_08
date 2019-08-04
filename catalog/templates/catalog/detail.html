@@ -7,7 +7,7 @@
 
 {% block content %}
     <div class="grid-100 mineral__container">
-        <h1 class="mineral__name">{{ mineral.name }}</h1>
+        <h1 class="mineral__name hero">{{ mineral.name }}</h1>
         <div class="mineral__image-bg">
             <img class="mineral__image" src="{% static 'images/' %}{{ mineral.image_filename }}">
             {% if mineral.image_caption %}
