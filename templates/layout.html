@@ -31,7 +31,7 @@
 </div>
 {% block content %}{% endblock %}
 </div>
-{%  if mineral %}
+{%  if mineral or minerals %}
 <div class="minerals__random">
     <a class="minerals__anchor" href="{% url 'catalog:detail' pk=x|random_mineral %}">Show random mineral</a>
 </div>
