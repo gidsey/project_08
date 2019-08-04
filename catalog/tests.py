@@ -91,3 +91,5 @@ class MineralViewsTests(TestCase):
         """Test the index view."""
         resp = self.client.get(reverse('catalog:import'))
         self.assertEqual(resp.status_code, 200)
+        self.assertIn(self.mineral, resp.context['minerals'])
+        self.assertTemplateUsed(resp, 'catalog/import.html')

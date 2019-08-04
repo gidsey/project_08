@@ -50,59 +50,31 @@ class Mineral(models.Model):
         """Add the data."""
         duplicates = 0
         for mineral in minerals:
-            obj, created = cls.objects.get_or_create(
-                name=mineral.get('name', ''),
-                image_filename=mineral.get('image_filename', ''),
-                image_caption=mineral.get('image_caption', ''),
-                category=mineral.get('category', ''),
-                formula=mineral.get('formula', ''),
-                strunz_classification=mineral.get('strunz_classification', ''),
-                color=mineral.get('color', ''),
-                crystal_system=mineral.get('crystal_system', ''),
-                unit_cell=mineral.get('unit_cell', ''),
-                crystal_symmetry=mineral.get('crystal_symmetry', ''),
-                cleavage=mineral.get('cleavage', ''),
-                mohs_scale_hardness=mineral.get('mohs_scale_hardness', ''),
-                luster=mineral.get('luster', ''),
-                streak=mineral.get('streak', ''),
-                diaphaneity=mineral.get('diaphaneity', ''),
-                optical_properties=mineral.get('optical_properties', ''),
-                refractive_index=mineral.get('refractive_index', ''),
-                crystal_habit=mineral.get('crystal_habit', ''),
-                specific_gravity=mineral.get('specific_gravity', ''),
-                group=mineral.get('group', ''),
-            )
-            if not created:
+            try:
+                cls.objects.get(name=mineral.get('name', ''))
                 duplicates += 1
+            except cls.DoesNotExist:
+                obj = cls(
+                    name=mineral.get('name', ''),
+                    image_filename=mineral.get('image_filename', ''),
+                    image_caption=mineral.get('image_caption', ''),
+                    category=mineral.get('category', ''),
+                    formula=mineral.get('formula', ''),
+                    strunz_classification=mineral.get('strunz_classification', ''),
+                    color=mineral.get('color', ''),
+                    crystal_system=mineral.get('crystal_system', ''),
+                    unit_cell=mineral.get('unit_cell', ''),
+                    crystal_symmetry=mineral.get('crystal_symmetry', ''),
+                    cleavage=mineral.get('cleavage', ''),
+                    mohs_scale_hardness=mineral.get('mohs_scale_hardness', ''),
+                    luster=mineral.get('luster', ''),
+                    streak=mineral.get('streak', ''),
+                    diaphaneity=mineral.get('diaphaneity', ''),
+                    optical_properties=mineral.get('optical_properties', ''),
+                    refractive_index=mineral.get('refractive_index', ''),
+                    crystal_habit=mineral.get('crystal_habit', ''),
+                    specific_gravity=mineral.get('specific_gravity', ''),
+                    group=mineral.get('group', ''),
+                )
+                obj.save()
         return duplicates
-
-        # error = 0
-        # for mineral in minerals:
-        #     try:
-        #         obj = cls.objects.get(name=mineral.get('name', ''))
-        #         error += 1
-        #     except cls.DoesNotExist:
-        #         obj = cls(
-        #             name=mineral.get('name', ''),
-        #             image_filename=mineral.get('image_filename', ''),
-        #             image_caption=mineral.get('image_caption', ''),
-        #             category=mineral.get('category', ''),
-        #             formula=mineral.get('formula', ''),
-        #             strunz_classification=mineral.get('strunz_classification', ''),
-        #             color=mineral.get('color', ''),
-        #             crystal_system=mineral.get('crystal_system', ''),
-        #             unit_cell=mineral.get('unit_cell', ''),
-        #             crystal_symmetry=mineral.get('crystal_symmetry', ''),
-        #             cleavage=mineral.get('cleavage', ''),
-        #             mohs_scale_hardness=mineral.get('mohs_scale_hardness', ''),
-        #             luster=mineral.get('luster', ''),
-        #             streak=mineral.get('streak', ''),
-        #             diaphaneity=mineral.get('diaphaneity', ''),
-        #             optical_properties=mineral.get('optical_properties', ''),
-        #             refractive_index=mineral.get('refractive_index', ''),
-        #             crystal_habit=mineral.get('crystal_habit', ''),
-        #             specific_gravity=mineral.get('specific_gravity', ''),
-        #             group=mineral.get('group', ''),
-        #         )
-        #         obj.save()
-        # return error
