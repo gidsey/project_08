@@ -3,7 +3,7 @@
     color: darkred;
 }
 
-.info{
+.info {
     display: block;
     margin-top: -22px;
     font-size: 14px;
@@ -24,12 +24,13 @@
     font-weight: bold;
 }
 
-.import{
+.import {
     margin: -20px auto 30px auto;
     width: 20%;
     min-width: 200px;
     border-radius: 1px;
 }
+
 .import_button {
     background-color: #9DB3A4;
     border-radius: 14px;
@@ -40,17 +41,57 @@
     color: #000;
 }
 
-.info__container { background-color: #fff; border-radius: 6px; padding: 30px;}
+.info__container {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 30px;
+}
 
 .b-link {
     color: #996868;
     text-decoration: underline;
 }
-.b-link a  {
+
+.b-link a {
     text-decoration: underline;
 }
 
 .hero {
     background-color: #4E7A74;
     color: #CAE5D2;
+}
+
+
+/*Project 8*/
+
+.letter-filter {
+
+    display: block;
+    clear: right;
+    margin: 0 auto;
+    width: 580px;
+    padding: 0;
+    clear: left;
+    float: none;
+}
+
+.letters {
+    font-weight: lighter;
+    font-size: 1.1em;
+    float: left;
+    list-style: none;
+}
+
+.letters a {
+    display: block;
+    padding: 8px 10px;
+    margin: 10px 6px;
+    background-color: #FFF;
+    border-radius: 3px;
+}
+
+.active a {
+    color: #FFF;
+    background-color: #4E7A74;
+    font-weight: bold;
 }

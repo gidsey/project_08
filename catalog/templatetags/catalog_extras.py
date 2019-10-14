@@ -7,6 +7,7 @@ from ..models import Mineral
 
 register = template.Library()
 
+
 @register.simple_tag
 def import_report(minerals_json_count, duplicate_count):
     if minerals_json_count == duplicate_count:

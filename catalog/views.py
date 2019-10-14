@@ -22,11 +22,14 @@ def import_minerals(request):
                    'ordered_fields': ordered_fields})
 
 
-def mineral_list(request):
+def mineral_list(request, name_filter=None):
     """Mineral list view."""
-    minerals = Mineral.objects.all().order_by('id')
-    context = {'minerals': minerals}
-    return render(request, 'catalog/index.html', context)
+    if name_filter is None:
+        name_filter = 'a'
+    # minerals = Mineral.objects.all().order_by('id')
+    minerals = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
+    return render(request, 'catalog/index.html',
+                  {'minerals': minerals})
 
 
 def mineral_detail(request, pk):
