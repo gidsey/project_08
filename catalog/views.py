@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Mineral
 from .data_processing import get_data, get_popular
 
+
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
     data = get_data()
@@ -19,6 +20,7 @@ def import_minerals(request):
                    'duplicate_count': duplicate_count,
                    'minerals': minerals,
                    'ordered_fields': ordered_fields})
+
 
 def mineral_list(request):
     """Mineral list view."""
