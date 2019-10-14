@@ -1,4 +1,4 @@
-# Treehouse Python Techdegree: Project 06
+# Treehouse Python Techdegree: Project 08
 
 ## Mineral Catalog
 
