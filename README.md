@@ -3,7 +3,7 @@
 ## Mineral Catalog
 
 ### Description
-Mineral database built using Django and Sqlite.
+Filtering and Searching the Mineral Catalog
 
 ### Information 
 Package requirements for the project are outlined in the 'requirements.txt' file.'
