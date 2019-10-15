@@ -36,7 +36,7 @@
     <section class="search-area {% if request.resolver_match.route == 'detail/<int:pk>/' %}search-detail{% endif %}">
         <ul>
             <li class="letters
-                {% if request.resolver_match.kwargs.name_filter == 'a' or not request.resolver_match.kwargs %}
+                {% if request.resolver_match.kwargs.name_filter == 'a' or not request.resolver_match.kwargs and request.resolver_match.url_name != 'search' %}
                 active{% endif %}"><a href="{% url 'catalog:filtered_list' name_filter='a' %}">A</a></li>
             <li class="letters {% if request.resolver_match.kwargs.name_filter == 'b' %}active{% endif %}">
                 <a href="{% url 'catalog:filtered_list' name_filter='b' %}">B</a></li>
