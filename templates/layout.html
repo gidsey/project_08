@@ -29,11 +29,13 @@
     <p class="logo__text text-centered">So much more than rocks.</p>
     {#    {% block importLink %}{% endblock %}#}
 </div>
-{#    {% if minerals %}#}
+{#{{ request.resolver_match }}#}
+{% if minerals and request.resolver_match.route != 'import/'%}
         <div class="letter-filter">
             <ul>
-                <li class="letters {% if request.resolver_match.kwargs.name_filter == 'a' %}active{% endif %}">
-                    <a href="{% url 'catalog:filtered_list' name_filter='a' %}">A</a></li>
+                <li class="letters
+                {% if request.resolver_match.kwargs.name_filter == 'a' or not request.resolver_match.kwargs %}
+                active{% endif %}"><a href="{% url 'catalog:filtered_list' name_filter='a' %}">A</a></li>
                 <li class="letters {% if request.resolver_match.kwargs.name_filter == 'b' %}active{% endif %}">
                     <a href="{% url 'catalog:filtered_list' name_filter='b' %}">B</a></li>
                 <li class="letters {% if request.resolver_match.kwargs.name_filter == 'c' %}active{% endif %}">
@@ -80,7 +82,7 @@
                     <a href="{% url 'catalog:filtered_list' name_filter='v' %}">V</a></li>
                 <li class="letters {% if request.resolver_match.kwargs.name_filter == 'w' %}active{% endif %}">
                     <a href="{% url 'catalog:filtered_list' name_filter='w' %}">W</a></li>
-                <<li class="letters {% if request.resolver_match.kwargs.name_filter == 'x' %}active{% endif %}">
+                <li class="letters {% if request.resolver_match.kwargs.name_filter == 'x' %}active{% endif %}">
                 <a href="{% url 'catalog:filtered_list' name_filter='x' %}">X</a></li>
                 <li class="letters {% if request.resolver_match.kwargs.name_filter == 'y' %}active{% endif %}">
                     <a href="{% url 'catalog:filtered_list' name_filter='y' %}">Y</a></li>
@@ -88,9 +90,7 @@
                     <a href="{% url 'catalog:filtered_list' name_filter='z' %}">Z</a></li>
             </ul>
         </div>
-{#    {% endif %}#}
-
-
+{%  endif %}
 {% block content %}{% endblock %}
 </div>
 

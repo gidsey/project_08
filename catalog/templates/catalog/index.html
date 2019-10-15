@@ -10,13 +10,20 @@
 {% block content %}
     <div class="grid-100">
         {% if minerals %}
+            {%  if not mineral_filtered %}
+                <div class="info__container">
+                <h2>No minerals found</h2>
+                    <p>Please choose another letter.</p>
+            </div>
+        {%  else %}
             <ul class="minerals__container">
-                {% for mineral in minerals %}
+                {% for mineral in mineral_filtered %}
                     <li class="minerals__item">
                         <a class="minerals__anchor"
                            href="{% url 'catalog:detail' pk=mineral.pk %}">{{ mineral|safe }}</a>
                     </li>
                 {% endfor %}</ul>
+                {% endif %}
         {% else %}
             <div class="info__container">
                 <h2>Welcome</h2>

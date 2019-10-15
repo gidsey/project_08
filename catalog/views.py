@@ -26,10 +26,12 @@ def mineral_list(request, name_filter=None):
     """Mineral list view."""
     if name_filter is None:
         name_filter = 'a'
-    # minerals = Mineral.objects.all().order_by('id')
-    minerals = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
-    return render(request, 'catalog/index.html',
-                  {'minerals': minerals})
+    minerals = Mineral.objects.all()
+    mineral_filtered = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
+    return render(request, 'catalog/index.html',{
+        'minerals': minerals,
+        'mineral_filtered': mineral_filtered,
+    })
 
 
 def mineral_detail(request, pk):
