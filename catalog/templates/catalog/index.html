@@ -21,6 +21,13 @@
                 <h2>{{ num_results }} result{{ num_results|pluralize }} found for '{{ term }}'</h2>
             </div>
                 {%  endif %}
+
+                {% if group_filter %}
+                    <div class="info__container info_results">
+                    <h2>{{ group_filter }}</h2>
+                    <p>({{ num_in_group }} found)</p>
+                    </div>
+                    {% endif %}
             <ul class="minerals__container minerals__container_ext">
                 {% for mineral in mineral_filtered %}
                     <li class="minerals__item">

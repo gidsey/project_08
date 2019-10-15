@@ -38,9 +38,12 @@ def mineral_group(request, group_filter):
     """Mineral Group view."""
     minerals = Mineral.objects.all()
     mineral_filtered = Mineral.objects.filter(group__iexact=group_filter).order_by('id')
+    num_in_group = mineral_filtered.count()
     return render(request, 'catalog/index.html',{
         'minerals': minerals,
         'mineral_filtered': mineral_filtered,
+        'group_filter': group_filter,
+        'num_in_group': num_in_group,
     })
 
 
