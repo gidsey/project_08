@@ -63,17 +63,53 @@
 
 
 /*Project 8*/
+* {box-sizing: border-box;}
 
-.letter-filter {
-
+.search-area {
     display: block;
-    clear: right;
     margin: 0 auto;
     width: 580px;
     padding: 0;
-    clear: left;
-    float: none;
 }
+
+.search-detail {
+    margin: 0 auto 0 28px;
+}
+
+.search-bar {
+    width: 300px;
+    height: 100px;
+    overflow: hidden;
+    display: block;
+    padding-top: 20px;
+    margin: 0 auto;
+}
+.search-container input {
+    width: 80%;
+    float: left;
+    transition: none;
+    }
+
+.search-container button {
+    float: none;
+    display: block;
+    width: 40px;
+    padding: 6px 0;
+    margin: 0;
+    font-size: 1.2em;
+    border-radius: 3px;
+    transition: none;
+  }
+
+.search-container button:hover {
+  background: #9DB3A4;
+}
+
+
+input[type=text] {
+    border: 1px solid #ccc;
+  }
+
 
 .letters {
     font-weight: lighter;
@@ -99,4 +135,8 @@
 
 .minerals__container_ext {
     min-height: 200px;
+}
+
+.info_results {
+    background-color: #b7cabd;
 }

@@ -1,6 +1,7 @@
 """Catalog Views."""
 
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Count
 
 from .models import Mineral
 from .data_processing import get_data, get_popular
@@ -27,9 +28,11 @@ def mineral_list(request, name_filter=None):
         name_filter = 'a'
     minerals = Mineral.objects.all()
     mineral_filtered = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
+    # num_results = mineral_filtered.count()
     return render(request, 'catalog/index.html',{
         'minerals': minerals,
         'mineral_filtered': mineral_filtered,
+        # 'num_results': num_results,
     })
 
 
@@ -51,7 +54,10 @@ def search(request):
     term = request.GET.get('q')
     minerals = Mineral.objects.all()
     mineral_filtered = Mineral.objects.filter(name__icontains=term)
+    num_results = mineral_filtered.count()
     return render(request, 'catalog/index.html', {
         'minerals': minerals,
         'mineral_filtered': mineral_filtered,
+        'num_results': num_results,
+        'term': term,
     })

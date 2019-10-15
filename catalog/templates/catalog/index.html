@@ -11,11 +11,16 @@
     <div class="grid-100">
         {% if minerals %}
             {%  if not mineral_filtered %}
-                <div class="info__container">
-                <h2>No minerals found</h2>
-                    <p>Please choose another letter.</p>
+                <div class="info__container info_results">
+                <h2>No results found for '{{ term }}'</h2>
+                    <p>Please try another search.</p>
             </div>
         {%  else %}
+                {% if num_results %}
+                     <div class="info__container info_results">
+                <h2>{{ num_results }} result{{ num_results|pluralize }} found for '{{ term }}'</h2>
+            </div>
+                {%  endif %}
             <ul class="minerals__container minerals__container_ext">
                 {% for mineral in mineral_filtered %}
                     <li class="minerals__item">
