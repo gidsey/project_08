@@ -111,6 +111,23 @@ input[type=text] {
   }
 
 
+.group-label {
+    font-weight: lighter;
+    font-size: 1.1em;
+    float: left;
+    list-style: none;
+}
+
+.group-label a {
+    display: block;
+    padding: 2px 10px;
+    padding: 2px 10px;
+    margin: 0 6px;
+    background-color: #FFF;
+    border-radius: 3px;
+}
+
+
 .letters {
     font-weight: lighter;
     font-size: 1.1em;

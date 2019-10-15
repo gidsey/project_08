@@ -19,18 +19,30 @@
 {% if request.resolver_match.route != 'import/' %}
     <section class="groups">
         <ul class="group-list">
-            <li><a href="{% url 'catalog:group_list' group_filter='Silicates' %}">Silicates</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Oxides' %}">Oxides</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Sulfides' %}">Sulfides</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Carbonates' %}">Carbonates</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Halides' %}">Halides</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Sulfosalts' %}">Sulfosalts</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Phosphates' %}">Phosphates</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Borates' %}">Borates</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Organic Minerals' %}">Organic Minerals</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Arsenates' %}">Arsenates</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Native Elements' %}">Native Elements</a></li>
-            <li><a href="{% url 'catalog:group_list' group_filter='Other' %}">Other</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Silicates' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Silicates' %}">Silicates</a></li>
+            <li class="group-label  {% if request.resolver_match.kwargs.group_filter == 'Oxides' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Oxides' %}">Oxides</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Sulfides' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Sulfides' %}">Sulfides</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Carbonates' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Carbonates' %}">Carbonates</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Halides' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Halides' %}">Halides</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Sulfosalts' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Sulfosalts' %}">Sulfosalts</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Phosphates' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Phosphates' %}">Phosphates</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Borates' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Borates' %}">Borates</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Organic Minerals' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Organic Minerals' %}">Organic Minerals</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Arsenates' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Arsenates' %}">Arsenates</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Native Elements' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Native Elements' %}">Native Elements</a></li>
+            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Other' %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter='Other' %}">Other</a></li>
         </ul>
     </section>
 {% endif %}
