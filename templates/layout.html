@@ -30,7 +30,7 @@
     {#    {% block importLink %}{% endblock %}#}
 </div>
 {#{{ request.resolver_match }}#}
-{% if minerals and request.resolver_match.route != 'import/' %}
+{% if request.resolver_match.route != 'import/' %}
 
     <section class="top-bar-right">
         <form action="{% url 'catalog:search' %}" method="GET">

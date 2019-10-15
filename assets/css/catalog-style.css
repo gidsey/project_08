@@ -95,3 +95,8 @@
     background-color: #4E7A74;
     font-weight: bold;
 }
+
+
+.minerals__container_ext {
+    min-height: 200px;
+}
