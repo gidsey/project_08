@@ -28,11 +28,19 @@ def mineral_list(request, name_filter=None):
         name_filter = 'a'
     minerals = Mineral.objects.all()
     mineral_filtered = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
-    # num_results = mineral_filtered.count()
     return render(request, 'catalog/index.html',{
         'minerals': minerals,
         'mineral_filtered': mineral_filtered,
-        # 'num_results': num_results,
+    })
+
+
+def mineral_group(request, group_filter):
+    """Mineral Group view."""
+    minerals = Mineral.objects.all()
+    mineral_filtered = Mineral.objects.filter(group__iexact=group_filter).order_by('id')
+    return render(request, 'catalog/index.html',{
+        'minerals': minerals,
+        'mineral_filtered': mineral_filtered,
     })
 
 

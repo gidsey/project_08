@@ -15,21 +15,25 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body><section class="group-list"><ul>
-    <li>Silicates</li>
-    <li>Oxides</li>
-    <li>Sulfides</li>
-    <li>Carbonates</li>
-    <li>Halides</li>
-    <li>Sulfosalts</li>
-    <li>Phosphates</li>
-    <li>Borates</li>
-    <li>Organic Minerals</li>
-    <li>Arsenates</li>
-    <li>Native Elements</li>
-    <li>Other</li>
-</ul>
-</section>
+<body>
+{% if request.resolver_match.route != 'import/' %}
+    <section class="groups">
+        <ul class="group-list">
+            <li><a href="{% url 'catalog:group_list' group_filter='Silicates' %}">Silicates</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Oxides' %}">Oxides</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Sulfides' %}">Sulfides</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Carbonates' %}">Carbonates</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Halides' %}">Halides</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Sulfosalts' %}">Sulfosalts</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Phosphates' %}">Phosphates</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Borates' %}">Borates</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Organic Minerals' %}">Organic Minerals</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Arsenates' %}">Arsenates</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Native Elements' %}">Native Elements</a></li>
+            <li><a href="{% url 'catalog:group_list' group_filter='Other' %}">Other</a></li>
+        </ul>
+    </section>
+{% endif %}
 {% block boundsClass %}{% endblock %}
 
 <div class="grid-100">
@@ -47,9 +51,6 @@
 </div>
 {#{{ request.resolver_match }}#}
 {% if request.resolver_match.route != 'import/' %}
-
-
-
 
     <section class="search-area {% if request.resolver_match.route == 'detail/<int:pk>/' %}search-detail{% endif %}">
         <ul>
@@ -113,11 +114,11 @@
 
     <section class="search-bar">
         <div class="search-container {% if request.resolver_match.route == 'detail/<int:pk>/' %}search-detail{% endif %}">
-        <form action="{% url 'catalog:search' %}" method="GET">
-          <input type="text" placeholder="Search.." name="q">
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-      </div>
+            <form action="{% url 'catalog:search' %}" method="GET">
+                <input type="text" placeholder="Search.." name="q">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
     </section>
 
 {% endif %}

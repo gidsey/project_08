@@ -141,11 +141,15 @@ input[type=text] {
     background-color: #b7cabd;
 }
 
-.group-list {
+.groups {
     display: block;
     position: sticky;
     float: left;
     top: 230px;
     left: 30px;
     width: 200px;
+}
+
+.group-list {
+    list-style: none;
 }
