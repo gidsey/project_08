@@ -140,3 +140,12 @@ input[type=text] {
 .info_results {
     background-color: #b7cabd;
 }
+
+.group-list {
+    display: block;
+    position: sticky;
+    float: left;
+    top: 230px;
+    left: 30px;
+    width: 200px;
+}

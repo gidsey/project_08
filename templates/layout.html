@@ -15,8 +15,23 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
+<body><section class="group-list"><ul>
+    <li>Silicates</li>
+    <li>Oxides</li>
+    <li>Sulfides</li>
+    <li>Carbonates</li>
+    <li>Halides</li>
+    <li>Sulfosalts</li>
+    <li>Phosphates</li>
+    <li>Borates</li>
+    <li>Organic Minerals</li>
+    <li>Arsenates</li>
+    <li>Native Elements</li>
+    <li>Other</li>
+</ul>
+</section>
 {% block boundsClass %}{% endblock %}
+
 <div class="grid-100">
     <a href="{% url 'catalog:list' %}">
         <svg class="logo" viewBox="0 0 127.6 84.8" preserveAspectRation="xMinYMin meet">
@@ -32,6 +47,9 @@
 </div>
 {#{{ request.resolver_match }}#}
 {% if request.resolver_match.route != 'import/' %}
+
+
+
 
     <section class="search-area {% if request.resolver_match.route == 'detail/<int:pk>/' %}search-detail{% endif %}">
         <ul>
