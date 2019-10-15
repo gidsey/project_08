@@ -2,7 +2,6 @@
 
 from django.shortcuts import render, get_object_or_404
 
-
 from .models import Mineral
 from .data_processing import get_data, get_popular
 
@@ -46,3 +45,13 @@ def mineral_detail(request, pk):
     return render(request, 'catalog/detail.html',
                   {'mineral': mineral, 'field_list': field_list})
 
+
+def search(request):
+    """Define the search view."""
+    term = request.GET.get('q')
+    minerals = Mineral.objects.all()
+    mineral_filtered = Mineral.objects.filter(name__icontains=term)
+    return render(request, 'catalog/index.html', {
+        'minerals': minerals,
+        'mineral_filtered': mineral_filtered,
+    })

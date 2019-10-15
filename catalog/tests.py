@@ -18,6 +18,7 @@ class MineralModelTests(TestCase):
         )
         self.assertIn('.jpg', mineral.image_filename)
 
+
 class MineralViewsTests(TestCase):
     """Test the views."""
 
@@ -76,7 +77,6 @@ class MineralViewsTests(TestCase):
         self.assertTemplateUsed(resp, 'catalog/index.html')
         self.assertContains(resp, self.mineral.name)
 
-
     def test_detail_view(self):
         """Test the detail view."""
         resp = self.client.get(reverse('catalog:detail',
@@ -85,7 +85,6 @@ class MineralViewsTests(TestCase):
         self.assertEqual(self.mineral, resp.context['mineral'])
         self.assertTemplateUsed(resp, 'catalog/detail.html')
         self.assertContains(resp, self.mineral.group)
-
 
     def test_import_view(self):
         """Test the index view."""
