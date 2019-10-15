@@ -12,7 +12,7 @@
         {% if minerals %}
             {%  if not mineral_filtered %}
                 <div class="info__container info_results">
-                <h2>No results found for '{{ term }}'</h2>
+                <h2>No results found {% if term %}for '{{ term }}'{% endif %}</h2>
                     <p>Please try another search.</p>
             </div>
         {%  else %}
