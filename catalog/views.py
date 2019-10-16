@@ -1,7 +1,8 @@
 """Catalog Views."""
+import random
 
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Count
+from django.db.models import Q
 
 from .models import Mineral
 from .data_processing import get_data, get_popular
@@ -26,29 +27,35 @@ def mineral_list(request, name_filter=None):
     """Mineral list view."""
     if name_filter is None:
         name_filter = 'a'
-    minerals = Mineral.objects.all()
+    minerals = Mineral.objects.all().values_list('id', flat=True)
+    random_mineral = random.choice(minerals)
     mineral_filtered = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
     return render(request, 'catalog/index.html',{
         'minerals': minerals,
         'mineral_filtered': mineral_filtered,
+        'random_mineral': random_mineral,
     })
 
 
 def mineral_group(request, group_filter):
     """Mineral Group view."""
-    minerals = Mineral.objects.all()
+    minerals = Mineral.objects.all().values_list('id', flat=True)
     mineral_filtered = Mineral.objects.filter(group__iexact=group_filter).order_by('id')
+    random_mineral = random.choice(minerals)
     num_in_group = mineral_filtered.count()
-    return render(request, 'catalog/index.html',{
+    return render(request, 'catalog/index.html', {
         'minerals': minerals,
         'mineral_filtered': mineral_filtered,
         'group_filter': group_filter,
         'num_in_group': num_in_group,
+        'random_mineral': random_mineral,
     })
 
 
 def mineral_detail(request, pk):
     """Mineral detail view."""
+    minerals = Mineral.objects.all().values_list('id', flat=True)
+    random_mineral = random.choice(minerals)
     mineral = get_object_or_404(Mineral, pk=pk)
     if 'ordered_fields' not in request.session:
         ordered_fields = get_popular()
@@ -56,15 +63,39 @@ def mineral_detail(request, pk):
     else:
         ordered_fields = request.session['ordered_fields']
     field_list = mineral.get_fields(ordered_fields)
-    return render(request, 'catalog/detail.html',
-                  {'mineral': mineral, 'field_list': field_list})
+    return render(request, 'catalog/detail.html', {
+                'mineral': mineral,
+                'field_list': field_list,
+                'random_mineral': random_mineral,
+    })
 
 
 def search(request):
     """Define the search view."""
     term = request.GET.get('q')
     minerals = Mineral.objects.all()
-    mineral_filtered = Mineral.objects.filter(name__icontains=term)
+    mineral_filtered = Mineral.objects.filter(
+        Q(name__icontains=term) |
+        Q(image_filename__icontains=term) |
+        Q(image_caption__icontains=term) |
+        Q(category__icontains=term) |
+        Q(formula__icontains=term) |
+        Q(strunz_classification__icontains=term) |
+        Q(color__icontains=term) |
+        Q(crystal_system__icontains=term) |
+        Q(unit_cell__icontains=term) |
+        Q(crystal_symmetry__icontains=term) |
+        Q(cleavage__icontains=term) |
+        Q(mohs_scale_hardness__icontains=term) |
+        Q(luster__icontains=term) |
+        Q(streak__icontains=term) |
+        Q(diaphaneity__icontains=term) |
+        Q(optical_properties__icontains=term) |
+        Q(refractive_index__icontains=term) |
+        Q(crystal_habit__icontains=term) |
+        Q(specific_gravity__icontains=term) |
+        Q(group__icontains=term)
+    )
     num_results = mineral_filtered.count()
     return render(request, 'catalog/index.html', {
         'minerals': minerals,

@@ -1,5 +1,4 @@
 {% load static from staticfiles %}
-{% load catalog_extras %}
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -18,6 +17,7 @@
 <body>
 {% if request.resolver_match.route != 'import/' %}
     <section class="groups">
+    <h2 class="cat-title">Groups</h2>
         <ul class="group-list">
             <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Silicates' %}active{% endif %}">
                 <a href="{% url 'catalog:group_list' group_filter='Silicates' %}">Silicates</a></li>
@@ -137,9 +137,9 @@
 {% block content %}{% endblock %}
 </div>
 
-{% if mineral or minerals %}
+{% if request.resolver_match.route != 'import/' %}
     <div class="minerals__random">
-        <a class="minerals__anchor" href="{% url 'catalog:detail' pk=x|random_mineral %}">Show random mineral</a>
+        <a class="minerals__anchor" href="{% url 'catalog:detail' pk=random_mineral %}">Show random mineral</a>
     </div>
 {% endif %}
 </body>
