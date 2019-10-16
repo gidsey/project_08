@@ -16,6 +16,7 @@ def import_minerals(request):
     minerals = Mineral.objects.all().order_by('id')
     ordered_fields = get_popular()
     request.session['ordered_fields'] = ordered_fields
+    request.session['groups'] = utils.get_groups()
     return render(request, 'catalog/import.html',
                   {'minerals_json_count': minerals_json_count,
                    'duplicate_count': duplicate_count,
@@ -26,7 +27,13 @@ def import_minerals(request):
 def mineral_list(request, name_filter='a'):
     """Mineral list view."""
     random_mineral = utils.get_random_mineral_id()
-    groups = utils.get_groups()
+
+    if 'groups' not in request.session:
+        groups = utils.get_groups()
+        request.session['groups'] = groups
+    else:
+        groups = request.session['groups']
+
     mineral_filtered = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
     num_in_list = mineral_filtered.count()
     return render(request, 'catalog/index.html',{
@@ -42,7 +49,13 @@ def mineral_list(request, name_filter='a'):
 def mineral_group(request, group_filter):
     """Mineral Group view."""
     random_mineral = utils.get_random_mineral_id()
-    groups = utils.get_groups()
+
+    if 'groups' not in request.session:
+        groups = utils.get_groups()
+        request.session['groups'] = groups
+    else:
+        groups = request.session['groups']
+
     mineral_filtered = Mineral.objects.filter(group__iexact=group_filter).order_by('id')
     num_in_group = mineral_filtered.count()
 
@@ -58,16 +71,22 @@ def mineral_group(request, group_filter):
 
 def mineral_detail(request, pk):
     """Mineral detail view."""
-    random_mineral = utils.get_random_mineral_id()
-    groups = utils.get_groups()
+    if 'groups' not in request.session:
+        groups = utils.get_groups()
+        request.session['groups'] = groups
+    else:
+        groups = request.session['groups']
 
-    mineral = get_object_or_404(Mineral, pk=pk)
     if 'ordered_fields' not in request.session:
         ordered_fields = get_popular()
         request.session['ordered_fields'] = ordered_fields
     else:
         ordered_fields = request.session['ordered_fields']
+
+    random_mineral = utils.get_random_mineral_id()
+    mineral = get_object_or_404(Mineral, pk=pk)
     field_list = mineral.get_fields(ordered_fields)
+
     return render(request, 'catalog/detail.html', {
                 'mineral': mineral,
                 'field_list': field_list,
