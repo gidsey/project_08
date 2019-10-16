@@ -23,14 +23,13 @@ def import_minerals(request):
                    'ordered_fields': ordered_fields})
 
 
-def mineral_list(request, name_filter=None):
+def mineral_list(request, name_filter='a'):
     """Mineral list view."""
-    if name_filter is None:
-        name_filter = 'a'
     minerals = Mineral.objects.all().values_list('id', flat=True)
     random_mineral = random.choice(minerals)
     mineral_filtered = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
     return render(request, 'catalog/index.html',{
+        'name_filter': name_filter,
         'minerals': minerals,
         'mineral_filtered': mineral_filtered,
         'random_mineral': random_mineral,
@@ -71,9 +70,10 @@ def mineral_detail(request, pk):
 
 
 def search(request):
-    """Define the search view."""
+    """Search view. Perform a keyword serach across all fields."""
     term = request.GET.get('q')
-    minerals = Mineral.objects.all()
+    minerals = Mineral.objects.all().values_list('id', flat=True)
+    random_mineral = random.choice(minerals)
     mineral_filtered = Mineral.objects.filter(
         Q(name__icontains=term) |
         Q(image_filename__icontains=term) |
@@ -99,6 +99,7 @@ def search(request):
     num_results = mineral_filtered.count()
     return render(request, 'catalog/index.html', {
         'minerals': minerals,
+        'random_mineral': random_mineral,
         'mineral_filtered': mineral_filtered,
         'num_results': num_results,
         'term': term,

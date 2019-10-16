@@ -17,7 +17,7 @@
 <body>
 {% if request.resolver_match.route != 'import/' %}
     <section class="groups">
-    <h2 class="cat-title">Groups</h2>
+        <h2 class="cat-title">Groups</h2>
         <ul class="group-list">
             <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Silicates' %}active{% endif %}">
                 <a href="{% url 'catalog:group_list' group_filter='Silicates' %}">Silicates</a></li>
@@ -64,66 +64,20 @@
 {#{{ request.resolver_match }}#}
 {% if request.resolver_match.route != 'import/' %}
 
-    <section class="search-area {% if request.resolver_match.route == 'detail/<int:pk>/' %}search-detail{% endif %}">
+    {% for letter in 'abcdefghijklmnopqrstuvwxyz' %}
+        <section class="search-area {% if request.resolver_match.route == 'detail/<int:pk>/' %}search-detail{% endif %}">
         <ul>
+        {% if letter == 'a' %}
             <li class="letters
-                {% if request.resolver_match.kwargs.name_filter == 'a' or not request.resolver_match.kwargs and request.resolver_match.url_name != 'search' %}
+                {% if name_filter == 'a' or not request.resolver_match.kwargs and request.resolver_match.url_name != 'search' %}
                 active{% endif %}"><a href="{% url 'catalog:filtered_list' name_filter='a' %}">A</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'b' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='b' %}">B</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'c' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='c' %}">C</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'd' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='d' %}">D</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'e' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='e' %}">E</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'f' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='f' %}">F</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'g' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='g' %}">G</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'h' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='h' %}">H</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'i' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='i' %}">I</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'j' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='j' %}">J</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'k' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='k' %}">K</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'l' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='l' %}">L</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'm' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='m' %}">M</a></li>
+        {% else %}
+            <li class="letters {% if name_filter == letter %}active{% endif %}">
+                <a href="{% url 'catalog:filtered_list' name_filter=letter %}">{{ letter|upper }}</a></li>
+        {% endif %}
         </ul>
-        <ul class="letter-filter">
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'n' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='n' %}">N</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'o' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='o' %}">O</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'p' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='p' %}">P</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'q' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='q' %}">Q</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'r' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='r' %}">R</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 's' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='s' %}">S</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 't' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='t' %}">T</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'u' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='u' %}">U</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'v' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='v' %}">V</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'w' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='w' %}">W</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'x' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='x' %}">X</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'y' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='y' %}">Y</a></li>
-            <li class="letters {% if request.resolver_match.kwargs.name_filter == 'z' %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter='z' %}">Z</a></li>
-        </ul>
-    </section>
-
+</section>
+ {% endfor %}
     <section class="search-bar">
         <div class="search-container {% if request.resolver_match.route == 'detail/<int:pk>/' %}search-detail{% endif %}">
             <form action="{% url 'catalog:search' %}" method="GET">
