@@ -15,50 +15,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-{% if request.resolver_match.route != 'import/' %}
-    <section class="groups">
-        <h2 class="cat-title">Groups</h2>
 
-        <ul class="group-list">
+{% if request.resolver_match.route != 'import/' %}
+    <section class="filters">
+
+    <h2 class="cat-title">Groups</h2>
+    <ul class="group-list">
         {% for group in groups %}
             <li class="group-label {% if group_filter == group %}active{% endif %}">
                 <a href="{% url 'catalog:group_list' group_filter=group %}">{{ group }}</a></li>
-        {%  endfor %}
-        </ul>
-
+        {% endfor %}
+    </ul>
     </section>
+<section class="filters">
+    <h2 class="cat-title">Streak</h2>
+    <ul class="group-list">
+    {% for streak in streaks %}
+        <li class="group-label"><a href="#">{{ streak }}</a></li>
+        {% endfor %}
+        </ul>
+    </section>
+
 {% endif %}
+
+
 {% block boundsClass %}{% endblock %}
 
-<div class="grid-100">
-    <a href="{% url 'catalog:list' %}">
-        <svg class="logo" viewBox="0 0 127.6 84.8" preserveAspectRation="xMinYMin meet">
-            <polygon points="42.7,84.8 49.6,79.4 40,62.5 51.2,43.5 51.2,43.5 25,0 0,55.6 "/>
-            <polygon class="logo--middle" points="52.9,79.5 52.9,79.5 84.8,80.1 59.7,35 43.3,62.4 "/>
-            <polygon
-                    points="127.6,61.4 127.6,61.4 110.3,13.5 110.3,13.5 70.3,48.1 70.3,48.1 88.3,80.5 95.3,81.4 95.3,81.4 "/>
-        </svg>
-        <h1 class="logo__name text-centered">Martha's Minerals</h1>
-    </a>
-    <p class="logo__text text-centered">So much more than rocks.</p>
+<div class=" grid-100">
+<a href="{% url 'catalog:list' %}">
+    <svg class="logo" viewBox="0 0 127.6 84.8" preserveAspectRation="xMinYMin meet">
+        <polygon points="42.7,84.8 49.6,79.4 40,62.5 51.2,43.5 51.2,43.5 25,0 0,55.6 "/>
+        <polygon class="logo--middle" points="52.9,79.5 52.9,79.5 84.8,80.1 59.7,35 43.3,62.4 "/>
+        <polygon
+                points="127.6,61.4 127.6,61.4 110.3,13.5 110.3,13.5 70.3,48.1 70.3,48.1 88.3,80.5 95.3,81.4 95.3,81.4 "/>
+    </svg>
+    <h1 class="logo__name text-centered">Martha's Minerals</h1>
+</a>
+<p class="logo__text text-centered">So much more than rocks.</p>
 </div>
 {#{{ request.resolver_match }}#}
 {% if request.resolver_match.route != 'import/' %}
 
     {% for letter in 'abcdefghijklmnopqrstuvwxyz' %}
-        <section class="search-area {% if request.resolver_match.route == 'detail/<int:pk>/' %}search-detail{% endif %}">
-        <ul>
-        {% if letter == 'a' %}
-            <li class="letters
+        <section
+                class="search-area {% if request.resolver_match.route == 'detail/<int:pk>/' %}search-detail{% endif %}">
+            <ul>
+                {% if letter == 'a' %}
+                    <li class="letters
                 {% if name_filter == 'a' or not request.resolver_match.kwargs and request.resolver_match.url_name != 'search' %}
                 active{% endif %}"><a href="{% url 'catalog:filtered_list' name_filter='a' %}">A</a></li>
-        {% else %}
-            <li class="letters {% if name_filter == letter %}active{% endif %}">
-                <a href="{% url 'catalog:filtered_list' name_filter=letter %}">{{ letter|upper }}</a></li>
-        {% endif %}
-        </ul>
-</section>
- {% endfor %}
+                {% else %}
+                    <li class="letters {% if name_filter == letter %}active{% endif %}">
+                        <a href="{% url 'catalog:filtered_list' name_filter=letter %}">{{ letter|upper }}</a></li>
+                {% endif %}
+            </ul>
+        </section>
+    {% endfor %}
     <section class="search-bar">
         <div class="search-container {% if request.resolver_match.route == 'detail/<int:pk>/' %}search-detail{% endif %}">
             <form action="{% url 'catalog:search' %}" method="GET">

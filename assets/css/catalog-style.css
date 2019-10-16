@@ -159,15 +159,20 @@ input[type=text] {
     background-color: #b7cabd;
 }
 
-.groups {
+.filters {
     display: block;
-    position: sticky;
+    position: relative;
     float: left;
     top: 180px;
     left: 30px;
     width: 200px;
+    clear: left;
+    margin-bottom: 40px;
 }
 
+.filters:last-of-type{
+     margin-bottom: 600px;
+}
 .group-list {
     list-style: none;
 }
