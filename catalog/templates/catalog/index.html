@@ -13,23 +13,30 @@
             {% if not mineral_filtered %}
                 <div class="info__container info_results">
                     <h2>No results found {% if term %}for '{{ term }}'{% endif %}</h2>
-                    <p>Please try another search.</p>
+                    <p>Please try another search</p>
                 </div>
             {% else %}
-
                 {% if num_results %}
                     <div class="info__container info_results">
-                        <h2>{{ num_results }} result{{ num_results|pluralize }} found for
-                            '{{ term }}'</h2>
+                        <h2>Search results for '{{ term }}'</h2>
+                        <p>{{ num_results }} item{{ num_results|pluralize }} found</p>
                     </div>
                 {% endif %}
 
                 {% if group_filter %}
                     <div class="info__container info_results">
                         <h2>{{ group_filter }}</h2>
-                        <p>({{ num_in_group }} found)</p>
+                        <p>{{ num_in_group }} item{{ num_in_group|pluralize }} found</p>
                     </div>
                 {% endif %}
+
+                {% if num_in_list %}
+                    <div class="info__container info_results">
+                        <h2>{{ name_filter|upper }}</h2>
+                        <p>{{ num_in_list }} item{{ num_in_list|pluralize }} found</p>
+                    </div>
+                {% endif %}
+
                 <ul class="minerals__container minerals__container_ext">
                     {% for mineral in mineral_filtered %}
                         <li class="minerals__item">

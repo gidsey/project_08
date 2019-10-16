@@ -18,32 +18,14 @@
 {% if request.resolver_match.route != 'import/' %}
     <section class="groups">
         <h2 class="cat-title">Groups</h2>
+
         <ul class="group-list">
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Silicates' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Silicates' %}">Silicates</a></li>
-            <li class="group-label  {% if request.resolver_match.kwargs.group_filter == 'Oxides' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Oxides' %}">Oxides</a></li>
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Sulfides' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Sulfides' %}">Sulfides</a></li>
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Carbonates' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Carbonates' %}">Carbonates</a></li>
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Halides' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Halides' %}">Halides</a></li>
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Sulfosalts' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Sulfosalts' %}">Sulfosalts</a></li>
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Phosphates' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Phosphates' %}">Phosphates</a></li>
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Borates' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Borates' %}">Borates</a></li>
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Organic Minerals' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Organic Minerals' %}">Organic Minerals</a></li>
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Arsenates' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Arsenates' %}">Arsenates</a></li>
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Native Elements' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Native Elements' %}">Native Elements</a></li>
-            <li class="group-label {% if request.resolver_match.kwargs.group_filter == 'Other' %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter='Other' %}">Other</a></li>
+        {% for group in groups %}
+            <li class="group-label {% if group_filter == group %}active{% endif %}">
+                <a href="{% url 'catalog:group_list' group_filter=group %}">{{ group }}</a></li>
+        {%  endfor %}
         </ul>
+
     </section>
 {% endif %}
 {% block boundsClass %}{% endblock %}
@@ -59,7 +41,6 @@
         <h1 class="logo__name text-centered">Martha's Minerals</h1>
     </a>
     <p class="logo__text text-centered">So much more than rocks.</p>
-    {#    {% block importLink %}{% endblock %}#}
 </div>
 {#{{ request.resolver_match }}#}
 {% if request.resolver_match.route != 'import/' %}

@@ -115,6 +115,7 @@ input[type=text] {
     font-weight: lighter;
     font-size: 1.1em;
     float: left;
+    clear: left;
     list-style: none;
 }
 

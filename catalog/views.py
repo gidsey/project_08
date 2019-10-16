@@ -1,11 +1,11 @@
 """Catalog Views."""
-import random
-
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 
 from .models import Mineral
 from .data_processing import get_data, get_popular
+
+from . import utils
 
 
 def import_minerals(request):
@@ -25,36 +25,42 @@ def import_minerals(request):
 
 def mineral_list(request, name_filter='a'):
     """Mineral list view."""
-    minerals = Mineral.objects.all().values_list('id', flat=True)
-    random_mineral = random.choice(minerals)
+    random_mineral = utils.get_random_mineral_id()
+    groups = utils.get_groups()
     mineral_filtered = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
+    num_in_list = mineral_filtered.count()
     return render(request, 'catalog/index.html',{
         'name_filter': name_filter,
-        'minerals': minerals,
         'mineral_filtered': mineral_filtered,
+        'num_in_list': num_in_list,
+        'groups': groups,
         'random_mineral': random_mineral,
+        'minerals': True,
     })
 
 
 def mineral_group(request, group_filter):
     """Mineral Group view."""
-    minerals = Mineral.objects.all().values_list('id', flat=True)
+    random_mineral = utils.get_random_mineral_id()
+    groups = utils.get_groups()
     mineral_filtered = Mineral.objects.filter(group__iexact=group_filter).order_by('id')
-    random_mineral = random.choice(minerals)
     num_in_group = mineral_filtered.count()
+
     return render(request, 'catalog/index.html', {
-        'minerals': minerals,
-        'mineral_filtered': mineral_filtered,
         'group_filter': group_filter,
+        'mineral_filtered': mineral_filtered,
+        'groups': groups,
         'num_in_group': num_in_group,
         'random_mineral': random_mineral,
+        'minerals': True,
     })
 
 
 def mineral_detail(request, pk):
     """Mineral detail view."""
-    minerals = Mineral.objects.all().values_list('id', flat=True)
-    random_mineral = random.choice(minerals)
+    random_mineral = utils.get_random_mineral_id()
+    groups = utils.get_groups()
+
     mineral = get_object_or_404(Mineral, pk=pk)
     if 'ordered_fields' not in request.session:
         ordered_fields = get_popular()
@@ -65,15 +71,17 @@ def mineral_detail(request, pk):
     return render(request, 'catalog/detail.html', {
                 'mineral': mineral,
                 'field_list': field_list,
+                'groups': groups,
                 'random_mineral': random_mineral,
+
     })
 
 
 def search(request):
     """Search view. Perform a keyword serach across all fields."""
     term = request.GET.get('q')
-    minerals = Mineral.objects.all().values_list('id', flat=True)
-    random_mineral = random.choice(minerals)
+    random_mineral = utils.get_random_mineral_id()
+    groups = utils.get_groups()
     mineral_filtered = Mineral.objects.filter(
         Q(name__icontains=term) |
         Q(image_filename__icontains=term) |
@@ -98,9 +106,10 @@ def search(request):
     )
     num_results = mineral_filtered.count()
     return render(request, 'catalog/index.html', {
-        'minerals': minerals,
         'random_mineral': random_mineral,
         'mineral_filtered': mineral_filtered,
         'num_results': num_results,
         'term': term,
+        'groups': groups,
+        'minerals': True
     })
