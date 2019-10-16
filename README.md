@@ -28,3 +28,8 @@ Run the application:
 The site will be visible at http://127.0.0.1:8000/
 The admin site will be at: http://127.0.0.1:8000/admin
 
+## Attributions
+
+Project built by [Chris Guy](https://www.linkedin.com/in/gidsey/), October 2019
+
+
