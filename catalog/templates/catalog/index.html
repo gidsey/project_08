@@ -9,7 +9,6 @@
 {% endblock %}
 {% block content %}
     <div class="grid-100">
-        {% if minerals %}
             {% if not mineral_filtered %}
                 <div class="info__container info_results">
                     <h2>No results found {% if term %}for '{{ term }}'{% endif %}</h2>
@@ -45,12 +44,5 @@
                         </li>
                     {% endfor %}</ul>
             {% endif %}
-        {% else %}
-            <div class="info__container">
-                <h2>Welcome</h2>
-                <p>The database is empty. <a class="b-link" href="{% url 'catalog:import' %}">Import data</a> to
-                    start.</p>
-            </div>
-        {% endif %}
     </div>
 {% endblock %}

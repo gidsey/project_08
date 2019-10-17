@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block boundsClass %}
+    <div class="bounds">{% endblock %}
+
+{% block content %}
+        <div class="grid-100">
+    <div class="info__container">
+        <h2>Welcome</h2>
+        <p>The database is empty. <a class="b-link" href="{% url 'catalog:import' %}">Import data</a> to
+            start.</p>
+    </div>
+        </div>
+{% endblock %}

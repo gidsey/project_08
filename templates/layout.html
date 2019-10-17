@@ -16,7 +16,7 @@
 </head>
 <body>
 
-{% if request.resolver_match.route != 'import/' %}
+{% if not import %}
     <section class="filters">
 
     <h2 class="cat-title">Groups</h2>
@@ -54,7 +54,7 @@
 <p class="logo__text text-centered">So much more than rocks.</p>
 </div>
 {#{{ request.resolver_match }}#}
-{% if request.resolver_match.route != 'import/' %}
+{% if not import %}
 
     {% for letter in 'abcdefghijklmnopqrstuvwxyz' %}
         <section
@@ -84,7 +84,7 @@
 {% block content %}{% endblock %}
 </div>
 
-{% if request.resolver_match.route != 'import/' %}
+{% if not import %}
     <div class="minerals__random">
         <a class="minerals__anchor" href="{% url 'catalog:detail' pk=random_mineral %}">Show random mineral</a>
     </div>

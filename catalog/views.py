@@ -1,11 +1,22 @@
 """Catalog Views."""
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
+from django.urls import reverse
 
 from .models import Mineral
 from .data_processing import get_data, get_popular
 
 from . import utils
+
+
+def check_data(request):
+    """Check if the database contains data and redirect accordingly"""
+    minerals = Mineral.objects.all().order_by('id')
+    if minerals:
+        return HttpResponseRedirect(reverse('catalog/list'))
+    else:
+        return render(request, 'catalog/no-data.html', {'import': True, })
 
 
 def import_minerals(request):
@@ -18,7 +29,8 @@ def import_minerals(request):
     request.session['ordered_fields'] = ordered_fields
     request.session['groups'] = utils.get_groups()
     return render(request, 'catalog/import.html',
-                  {'minerals_json_count': minerals_json_count,
+                  {'import': True,
+                   'minerals_json_count': minerals_json_count,
                    'duplicate_count': duplicate_count,
                    'minerals': minerals,
                    'ordered_fields': ordered_fields})
@@ -26,7 +38,6 @@ def import_minerals(request):
 
 def mineral_list(request, name_filter='a'):
     """Mineral list view."""
-    random_mineral = utils.get_random_mineral_id()
 
     if 'groups' not in request.session:
         groups = utils.get_groups()
@@ -48,14 +59,12 @@ def mineral_list(request, name_filter='a'):
         'num_in_list': num_in_list,
         'groups': groups,
         'streaks': streaks,
-        'random_mineral': random_mineral,
-        'minerals': True,
+        'random_mineral': utils.get_random_mineral_id(),
     })
 
 
 def mineral_group(request, group_filter):
     """Mineral Group view."""
-    random_mineral = utils.get_random_mineral_id()
 
     if 'groups' not in request.session:
         groups = utils.get_groups()
@@ -78,13 +87,13 @@ def mineral_group(request, group_filter):
         'groups': groups,
         'streaks': streaks,
         'num_in_group': num_in_group,
-        'random_mineral': random_mineral,
-        'minerals': True,
+        'random_mineral': utils.get_random_mineral_id(),
     })
 
 
 def mineral_detail(request, pk):
     """Mineral detail view."""
+
     if 'groups' not in request.session:
         groups = utils.get_groups()
         request.session['groups'] = groups
@@ -103,7 +112,6 @@ def mineral_detail(request, pk):
     else:
         ordered_fields = request.session['ordered_fields']
 
-    random_mineral = utils.get_random_mineral_id()
     mineral = get_object_or_404(Mineral, pk=pk)
     field_list = mineral.get_fields(ordered_fields)
 
@@ -111,8 +119,8 @@ def mineral_detail(request, pk):
                 'mineral': mineral,
                 'field_list': field_list,
                 'groups': groups,
-                 'streaks': streaks,
-                'random_mineral': random_mineral,
+                'streaks': streaks,
+                'random_mineral': utils.get_random_mineral_id(),
 
     })
 
@@ -163,5 +171,4 @@ def search(request):
         'term': term,
         'groups': groups,
         'streaks': streaks,
-        'minerals': True
     })
