@@ -27,7 +27,8 @@ def import_minerals(request):
     minerals = Mineral.objects.all().order_by('id')
     ordered_fields = get_popular()
     request.session['ordered_fields'] = ordered_fields
-    request.session['groups'] = utils.get_groups()
+    utils.get_groups(request)
+    utils.get_streaks(request)
     return render(request, 'catalog/import.html',
                   {'import': True,
                    'minerals_json_count': minerals_json_count,
@@ -38,54 +39,28 @@ def import_minerals(request):
 
 def mineral_list(request, name_filter='a'):
     """Mineral list view."""
-
-    if 'groups' not in request.session:
-        groups = utils.get_groups()
-        request.session['groups'] = groups
-    else:
-        groups = request.session['groups']
-
-    if 'streaks' not in request.session:
-        streaks = utils.get_streaks()
-        request.session['streaks'] = streaks
-    else:
-        streaks = request.session['streaks']
-
     mineral_filtered = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
     num_in_list = mineral_filtered.count()
     return render(request, 'catalog/index.html',{
         'name_filter': name_filter,
         'mineral_filtered': mineral_filtered,
         'num_in_list': num_in_list,
-        'groups': groups,
-        'streaks': streaks,
+        'groups': utils.get_groups(request),
+        'streaks': utils.get_streaks(request),
         'random_mineral': utils.get_random_mineral_id(),
     })
 
 
 def mineral_group(request, group_filter):
     """Mineral Group view."""
-
-    if 'groups' not in request.session:
-        groups = utils.get_groups()
-        request.session['groups'] = groups
-    else:
-        groups = request.session['groups']
-
-    if 'streaks' not in request.session:
-        streaks = utils.get_streaks()
-        request.session['streaks'] = streaks
-    else:
-        streaks = request.session['streaks']
-
     mineral_filtered = Mineral.objects.filter(group__iexact=group_filter).order_by('id')
     num_in_group = mineral_filtered.count()
 
     return render(request, 'catalog/index.html', {
         'group_filter': group_filter,
         'mineral_filtered': mineral_filtered,
-        'groups': groups,
-        'streaks': streaks,
+        'groups': utils.get_groups(request),
+        'streaks': utils.get_streaks(request),
         'num_in_group': num_in_group,
         'random_mineral': utils.get_random_mineral_id(),
     })
@@ -93,18 +68,6 @@ def mineral_group(request, group_filter):
 
 def mineral_detail(request, pk):
     """Mineral detail view."""
-
-    if 'groups' not in request.session:
-        groups = utils.get_groups()
-        request.session['groups'] = groups
-    else:
-        groups = request.session['groups']
-
-    if 'streaks' not in request.session:
-        streaks = utils.get_streaks()
-        request.session['streaks'] = streaks
-    else:
-        streaks = request.session['streaks']
 
     if 'ordered_fields' not in request.session:
         ordered_fields = get_popular()
@@ -118,29 +81,15 @@ def mineral_detail(request, pk):
     return render(request, 'catalog/detail.html', {
                 'mineral': mineral,
                 'field_list': field_list,
-                'groups': groups,
-                'streaks': streaks,
+                'groups': utils.get_groups(request),
+                'streaks': utils.get_streaks(request),
                 'random_mineral': utils.get_random_mineral_id(),
-
     })
 
 
 def search(request):
     """Search view. Perform a keyword serach across all fields."""
     term = request.GET.get('q')
-    random_mineral = utils.get_random_mineral_id()
-    if 'groups' not in request.session:
-        groups = utils.get_groups()
-        request.session['groups'] = groups
-    else:
-        groups = request.session['groups']
-
-    if 'streaks' not in request.session:
-        streaks = utils.get_streaks()
-        request.session['streaks'] = streaks
-    else:
-        streaks = request.session['streaks']
-
     mineral_filtered = Mineral.objects.filter(
         Q(name__icontains=term) |
         Q(image_filename__icontains=term) |
@@ -165,10 +114,10 @@ def search(request):
     )
     num_results = mineral_filtered.count()
     return render(request, 'catalog/index.html', {
-        'random_mineral': random_mineral,
+        'random_mineral': utils.get_random_mineral_id(),
         'mineral_filtered': mineral_filtered,
         'num_results': num_results,
         'term': term,
-        'groups': groups,
-        'streaks': streaks,
+        'groups': utils.get_groups(request),
+        'streaks': utils.get_streaks(request),
     })
