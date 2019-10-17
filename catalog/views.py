@@ -2,7 +2,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
-from django.urls import reverse
 
 from .models import Mineral
 from .data_processing import get_data, get_popular
@@ -14,7 +13,7 @@ def check_data(request):
     """Check if the database contains data and redirect accordingly"""
     minerals = Mineral.objects.all().order_by('id')
     if minerals:
-        return HttpResponseRedirect(reverse('catalog/list'))
+        return HttpResponseRedirect('/list')
     else:
         return render(request, 'catalog/no-data.html', {'import': True, })
 
