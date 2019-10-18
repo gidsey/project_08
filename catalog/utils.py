@@ -7,28 +7,27 @@ from . import models
 
 
 def get_groups(request):
-    """Get the list of groups from the DB, remove dupliactes and sort.
-    Store in a session varable and retieve as required."""
-    if 'groups' not in request.session:
-        groups = []
-        group_set = sorted(set(models.Mineral.objects.all().values_list('group', flat=True)))
-        for group in group_set:
-            groups.append((group, slugify(group)))
-        request.session['groups'] = groups
-    else:
-        groups = request.session['groups']
+    """
+    Get the list of groups from the DB, remove dupliactes and sort.
+    Create a list of tuples for each: (Group, slug).
+    """
+    groups = []
+    group_set = sorted(set(models.Mineral.objects.all().values_list('group', flat=True)))
+    for group in group_set:
+        groups.append((group, slugify(group)))
     return groups
 
 
 def get_streaks(request):
-    """Get the list of streaks from the DB, remove dupliactes and sort.
-    Store in a session varable and retieve as required."""
-    if 'streaks' not in request.session:
-        streaks = sorted(set(models.Mineral.objects.all().values_list('streak', flat=True)))
-        streaks.pop(0)
-        request.session['streaks'] = streaks
-    else:
-        streaks = request.session['streaks']
+    """
+    Get the list of streaks from the DB, remove dupliactes and sort.
+    Create a list of tuples for each: (Steak, slug).
+    """
+    streaks = []
+    streak_set = sorted(set(models.Mineral.objects.all().values_list('streak', flat=True)))
+    streak_set.pop(0)  # Remove the first empty result
+    for streak in streak_set:
+        streaks.append((streak, slugify(streak)))
     return streaks
 
 

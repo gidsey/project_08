@@ -53,18 +53,34 @@ def mineral_list(request, name_filter='a'):
 
 def mineral_group(request, group_filter):
     """Mineral Group view."""
-
-    search_term = request.POST.get('search_term', '')
-    print(search_term)
-
+    groups = utils.get_groups(request)
+    search_term = [item[0] for item in groups if group_filter in item][0]  # Get the de-slugified search term
     mineral_filtered = Mineral.objects.filter(group__iexact=search_term).order_by('id')
     num_in_group = mineral_filtered.count()
 
     return render(request, 'catalog/list.html', {
-        'group_filter': search_term,
+        'group_filter': group_filter,
+        'mineral_filtered': mineral_filtered,
+        'groups': groups,
+        'streaks': utils.get_streaks(request),
+        'num_in_group': num_in_group,
+        'random_mineral': utils.get_random_mineral_id(),
+    })
+
+
+
+def mineral_streak(request, streak_filter):
+    """Mineral Streak view."""
+    streaks = utils.get_streaks(request)
+    search_term = [item[0] for item in streaks if streak_filter in item][0]  # Get the de-slugified search term
+    mineral_filtered = Mineral.objects.filter(streak__iexact=search_term).order_by('id')
+    num_in_group = mineral_filtered.count()
+
+    return render(request, 'catalog/list.html', {
+        'streak_filter': streak_filter,
         'mineral_filtered': mineral_filtered,
         'groups': utils.get_groups(request),
-        'streaks': utils.get_streaks(request),
+        'streaks': streaks,
         'num_in_group': num_in_group,
         'random_mineral': utils.get_random_mineral_id(),
     })
