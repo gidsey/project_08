@@ -22,8 +22,14 @@
     <h2 class="cat-title">Groups</h2>
     <ul class="group-list">
         {% for group in groups %}
-            <li class="group-label {% if group_filter == group %}active{% endif %}">
-                <a href="{% url 'catalog:group_list' group_filter=group %}">{{ group }}</a></li>
+{#            <li class="group-label {% if group_filter == group.1 %}active{% endif %}">#}
+{#                <a href="{% url 'catalog:group_list' group_filter=group.1 %}">{{ group.0 }}</a>#}
+                 <form action="{% url 'catalog:group_list' group_filter=group.1 %}" method="POST">
+                     {% csrf_token %}
+                     <input type="submit" value="{{ group.0 }}" />
+                <input name="search_term" type="hidden" value="{{ group.0 }}"></form>
+{#            </li>#}
+
         {% endfor %}
     </ul>
     </section>

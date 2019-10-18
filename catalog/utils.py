@@ -1,6 +1,8 @@
 """Catalog Utils."""
 import random
 
+from django.utils.text import slugify
+
 from . import models
 
 
@@ -8,7 +10,10 @@ def get_groups(request):
     """Get the list of groups from the DB, remove dupliactes and sort.
     Store in a session varable and retieve as required."""
     if 'groups' not in request.session:
-        groups = sorted(set(models.Mineral.objects.all().values_list('group', flat=True)))
+        groups = []
+        group_set = sorted(set(models.Mineral.objects.all().values_list('group', flat=True)))
+        for group in group_set:
+            groups.append((group, slugify(group)))
         request.session['groups'] = groups
     else:
         groups = request.session['groups']

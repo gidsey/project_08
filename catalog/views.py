@@ -7,6 +7,7 @@ from .models import Mineral
 from .data_processing import get_data, get_popular
 
 from . import utils
+from . import forms
 
 
 def check_data(request):
@@ -52,11 +53,15 @@ def mineral_list(request, name_filter='a'):
 
 def mineral_group(request, group_filter):
     """Mineral Group view."""
-    mineral_filtered = Mineral.objects.filter(group__iexact=group_filter).order_by('id')
+
+    search_term = request.POST.get('search_term', '')
+    print(search_term)
+
+    mineral_filtered = Mineral.objects.filter(group__iexact=search_term).order_by('id')
     num_in_group = mineral_filtered.count()
 
     return render(request, 'catalog/list.html', {
-        'group_filter': group_filter,
+        'group_filter': search_term,
         'mineral_filtered': mineral_filtered,
         'groups': utils.get_groups(request),
         'streaks': utils.get_streaks(request),
