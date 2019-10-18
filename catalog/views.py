@@ -40,7 +40,7 @@ def mineral_list(request, name_filter='a'):
     """Mineral list view."""
     mineral_filtered = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
     num_in_list = mineral_filtered.count()
-    return render(request, 'catalog/index.html',{
+    return render(request, 'catalog/list.html', {
         'name_filter': name_filter,
         'mineral_filtered': mineral_filtered,
         'num_in_list': num_in_list,
@@ -55,7 +55,7 @@ def mineral_group(request, group_filter):
     mineral_filtered = Mineral.objects.filter(group__iexact=group_filter).order_by('id')
     num_in_group = mineral_filtered.count()
 
-    return render(request, 'catalog/index.html', {
+    return render(request, 'catalog/list.html', {
         'group_filter': group_filter,
         'mineral_filtered': mineral_filtered,
         'groups': utils.get_groups(request),
@@ -112,7 +112,7 @@ def search(request):
         Q(group__icontains=term)
     )
     num_results = mineral_filtered.count()
-    return render(request, 'catalog/index.html', {
+    return render(request, 'catalog/list.html', {
         'random_mineral': utils.get_random_mineral_id(),
         'mineral_filtered': mineral_filtered,
         'num_results': num_results,

@@ -74,7 +74,7 @@ class MineralViewsTests(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertIn(self.mineral, resp.context['minerals'])
         self.assertIn(self.mineral2, resp.context['minerals'])
-        self.assertTemplateUsed(resp, 'catalog/index.html')
+        self.assertTemplateUsed(resp, 'catalog/list.html')
         self.assertContains(resp, self.mineral.name)
 
     def test_detail_view(self):
