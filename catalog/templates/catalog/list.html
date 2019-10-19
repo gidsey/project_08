@@ -22,9 +22,9 @@
                     </div>
                 {% endif %}
 
-                {% if group_filter %}
+                {% if search_term %}
                     <div class="info__container info_results">
-                        <h2>{{ group_filter|capfirst }}</h2>
+                        <h2>{{ search_term }}</h2>
                         <p>{{ num_in_group }} item{{ num_in_group|pluralize }} found</p>
                     </div>
                 {% endif %}
