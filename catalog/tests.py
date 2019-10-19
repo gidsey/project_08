@@ -99,6 +99,16 @@ class MineralViewsTests(TestCase):
         self.assertContains(resp, self.mineral.name)
 
 
+    def test_search(self):
+        """Test the Streak filter view."""
+        resp = self.client.get(reverse('catalog:search', "q=joe"))
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn(self.mineral, resp.context['mineral_filtered'])
+        self.assertTemplateUsed(resp, 'catalog/list.html')
+        self.assertContains(resp, self.mineral.name)
+
+
+
     def test_detail_view(self):
         """Test the detail view."""
         resp = self.client.get(reverse('catalog:detail',
