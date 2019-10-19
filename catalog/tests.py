@@ -68,14 +68,36 @@ class MineralViewsTests(TestCase):
             group="Halides"
         )
 
-    def test_index_view(self):
-        """Test the index view."""
-        resp = self.client.get(reverse('catalog:list'))
+    def test_letter_filter_view(self):
+        """Test the letter filter view."""
+        resp = self.client.get(reverse('catalog:filtered_list',
+                                       kwargs={'name_filter': 's'}))
         self.assertEqual(resp.status_code, 200)
-        self.assertIn(self.mineral, resp.context['minerals'])
-        self.assertIn(self.mineral2, resp.context['minerals'])
+        self.assertIn(self.mineral, resp.context['mineral_filtered'])
         self.assertTemplateUsed(resp, 'catalog/list.html')
         self.assertContains(resp, self.mineral.name)
+
+
+    def test_group_filter_view(self):
+        """Test the Group filter view."""
+        resp = self.client.get(reverse('catalog:group_list',
+                                       kwargs={'group_filter': 'Halides'}))
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn(self.mineral2, resp.context['mineral_filtered'])
+        self.assertTemplateUsed(resp, 'catalog/list.html')
+        self.assertContains(resp, self.mineral2.name)
+
+
+    def test_streak_filter_view(self):
+        """Test the Streak filter view."""
+        resp = self.client.get(reverse('catalog:streak_list',
+                                       kwargs={'streak_filter': 'black'}))
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn(self.mineral, resp.context['mineral_filtered'])
+        self.assertIn(self.mineral2, resp.context['mineral_filtered'])
+        self.assertTemplateUsed(resp, 'catalog/list.html')
+        self.assertContains(resp, self.mineral.name)
+
 
     def test_detail_view(self):
         """Test the detail view."""
