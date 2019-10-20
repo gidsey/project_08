@@ -9,7 +9,7 @@ from . import utils
 from .models import Mineral
 from .data_processing import get_data, get_popular
 
-
+# Get the GROUPS, STREAKS and IDS once and save them as constants.
 list_items = utils.list_itmes()
 GROUPS = list_items['groups']
 STREAKS = list_items['streaks']
