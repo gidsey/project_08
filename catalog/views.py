@@ -1,12 +1,19 @@
 """Catalog Views."""
+import random
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 
+from . import utils
 from .models import Mineral
 from .data_processing import get_data, get_popular
 
-from . import utils
+
+list_items = utils.list_itmes()
+GROUPS = list_items['groups']
+STREAKS = list_items['streaks']
+IDS = list_items['ids']
 
 
 def check_data(request):
@@ -38,35 +45,29 @@ def mineral_list(request, name_filter='a'):
     """Mineral list view."""
     mineral_filtered = Mineral.objects.filter(name__istartswith=name_filter).order_by('id')
     num_in_list = mineral_filtered.count()
-    list_items = utils.list_itmes(request)
-    groups = list_items[0]
-    streaks = list_items[1]
-    random_mineral = list_items[2]
+    random_mineral = random.choice(IDS)
     return render(request, 'catalog/list.html', {
         'name_filter': name_filter,
         'mineral_filtered': mineral_filtered,
         'num_in_list': num_in_list,
-        'groups': groups,
-        'streaks': streaks,
+        'groups': GROUPS,
+        'streaks': STREAKS,
         'random_mineral': random_mineral,
     })
 
 
 def mineral_group(request, group_filter):
     """Mineral Group view."""
-    list_items = utils.list_itmes(request)
-    groups = list_items[0]
-    streaks = list_items[1]
-    random_mineral = list_items[2]
-    search_term = [item[0] for item in groups if group_filter in item][0]  # Get the de-slugified search term
+    random_mineral = random.choice(IDS)
+    search_term = [item[0] for item in GROUPS if group_filter in item][0]  # Get the de-slugified search term
     mineral_filtered = Mineral.objects.filter(group__iexact=search_term).order_by('id')
     num_in_group = mineral_filtered.count()
 
     return render(request, 'catalog/list.html', {
         'search_term': search_term,
         'mineral_filtered': mineral_filtered,
-        'groups': groups,
-        'streaks': streaks,
+        'groups': GROUPS,
+        'streaks': STREAKS,
         'num_in_group': num_in_group,
         'random_mineral': random_mineral,
     })
@@ -74,19 +75,16 @@ def mineral_group(request, group_filter):
 
 def mineral_streak(request, streak_filter):
     """Mineral Streak view."""
-    list_items = utils.list_itmes(request)
-    groups = list_items[0]
-    streaks = list_items[1]
-    random_mineral = list_items[2]
-    search_term = [item[0] for item in streaks if streak_filter in item][0]  # Get the de-slugified search term
+    random_mineral = random.choice(IDS)
+    search_term = [item[0] for item in STREAKS if streak_filter in item][0]  # Get the de-slugified search term
     mineral_filtered = Mineral.objects.filter(streak__iexact=search_term).order_by('id')
     num_in_group = mineral_filtered.count()
 
     return render(request, 'catalog/list.html', {
         'search_term': search_term,
         'mineral_filtered': mineral_filtered,
-        'groups': groups,
-        'streaks': streaks,
+        'groups': GROUPS,
+        'streaks': STREAKS,
         'num_in_group': num_in_group,
         'random_mineral': random_mineral,
     })
@@ -94,10 +92,7 @@ def mineral_streak(request, streak_filter):
 
 def mineral_detail(request, pk):
     """Mineral detail view."""
-    list_items = utils.list_itmes(request)
-    groups = list_items[0]
-    streaks = list_items[1]
-    random_mineral = list_items[2]
+    random_mineral = random.choice(IDS)
     if 'ordered_fields' not in request.session:
         ordered_fields = get_popular()
         request.session['ordered_fields'] = ordered_fields
@@ -110,18 +105,15 @@ def mineral_detail(request, pk):
     return render(request, 'catalog/detail.html', {
                 'mineral': mineral,
                 'field_list': field_list,
-                'groups': groups,
-                'streaks': streaks,
+                 'groups': GROUPS,
+                 'streaks': STREAKS,
                 'random_mineral': random_mineral,
     })
 
 
 def search(request):
     """Search view. Perform a keyword serach across all fields."""
-    list_items = utils.list_itmes(request)
-    groups = list_items[0]
-    streaks = list_items[1]
-    random_mineral = list_items[2]
+    random_mineral = random.choice(IDS)
     term = request.GET.get('q')
     mineral_filtered = Mineral.objects.filter(
         Q(name__icontains=term) |
@@ -150,7 +142,7 @@ def search(request):
         'mineral_filtered': mineral_filtered,
         'num_results': num_results,
         'term': term,
-        'groups': groups,
-        'streaks': streaks,
+        'groups': GROUPS,
+        'streaks': STREAKS,
         'random_mineral': random_mineral,
     })
