@@ -20,7 +20,7 @@ class MineralViewsTests(TestCase):
             name="Barstowite",
             image_filename="Barstowite.jpg",
             streak="White to brownish",
-            group='Organic Minerals'
+            group='Organic Minerals',
         )
 
     def test_letter_filter_view(self):
@@ -39,6 +39,7 @@ class MineralViewsTests(TestCase):
         Group filter must show minerals by selected group only.
         'organic-minerals' used as slugified filter
         """
+
         request = self.factory.get('list/group/')
         response = views.mineral_group(request, **{'group_filter': 'organic-minerals'})
         self.assertEqual(response.status_code, 200)
@@ -55,3 +56,26 @@ class MineralViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.axinite.name)
         self.assertNotContains(response, self.barstowite.name)
+
+    def test_search_view(self):
+        """
+        Keyword Search across all fields
+        'Greyish' used as serach term
+        """
+        request = self.factory.get('search/', {'q': 'Greyish'})
+        response = views.search(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.axinite.name)
+        self.assertNotContains(response, self.barstowite.name)
+
+    def test_mineral_detail_view(self):
+        """
+        Test the detail view
+        """
+        request = self.factory.get('detail/')
+        response = views.mineral_detail(request, **{'pk':  self.barstowite.pk})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.barstowite.name)
+        self.assertContains(response, self.barstowite.image_filename)
+        self.assertContains(response, self.barstowite.streak)
+        self.assertContains(response, self.barstowite.group)

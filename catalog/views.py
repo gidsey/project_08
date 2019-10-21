@@ -8,7 +8,8 @@ from django.shortcuts import get_object_or_404, render
 from . import utils
 from .models import Mineral
 
-# Get the GROUPS, STREAKS and IDS once and save them as constants.
+# Get the ORDERED_FIELDS, GROUPS, STREAKS and IDS once and save them as constants.
+ORDERED_FIELDS = utils.get_popular()
 list_items = utils.list_itmes()
 GROUPS = list_items['groups']
 STREAKS = list_items['streaks']
@@ -30,14 +31,12 @@ def import_minerals(request):
     minerals_json_count = data[0]
     duplicate_count = data[1]
     minerals = Mineral.objects.all().order_by('id')
-    ordered_fields = utils.get_popular()
-    request.session['ordered_fields'] = ordered_fields
     return render(request, 'catalog/import.html',
                   {'import': True,
                    'minerals_json_count': minerals_json_count,
                    'duplicate_count': duplicate_count,
                    'minerals': minerals,
-                   'ordered_fields': ordered_fields})
+                   'ordered_fields': ORDERED_FIELDS})
 
 
 def mineral_list(request, name_filter='a'):
@@ -92,20 +91,13 @@ def mineral_streak(request, streak_filter):
 def mineral_detail(request, pk):
     """Mineral detail view."""
     random_mineral = random.choice(IDS)
-    if 'ordered_fields' not in request.session:
-        ordered_fields = get_popular()
-        request.session['ordered_fields'] = ordered_fields
-    else:
-        ordered_fields = request.session['ordered_fields']
-
     mineral = get_object_or_404(Mineral, pk=pk)
-    field_list = mineral.get_fields(ordered_fields)
-
+    field_list = mineral.get_fields(ORDERED_FIELDS)
     return render(request, 'catalog/detail.html', {
                 'mineral': mineral,
                 'field_list': field_list,
-                 'groups': GROUPS,
-                 'streaks': STREAKS,
+                'groups': GROUPS,
+                'streaks': STREAKS,
                 'random_mineral': random_mineral,
     })
 
