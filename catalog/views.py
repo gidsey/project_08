@@ -1,13 +1,12 @@
 """Catalog Views."""
 import random
 
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 
 from . import utils
 from .models import Mineral
-from .data_processing import get_data, get_popular
 
 # Get the GROUPS, STREAKS and IDS once and save them as constants.
 list_items = utils.list_itmes()
@@ -27,11 +26,11 @@ def check_data(request):
 
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
-    data = get_data()
+    data = utils.get_data()
     minerals_json_count = data[0]
     duplicate_count = data[1]
     minerals = Mineral.objects.all().order_by('id')
-    ordered_fields = get_popular()
+    ordered_fields = utils.get_popular()
     request.session['ordered_fields'] = ordered_fields
     return render(request, 'catalog/import.html',
                   {'import': True,

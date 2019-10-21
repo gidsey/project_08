@@ -3,8 +3,8 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Mineral
 from . import utils
+from .models import Mineral
 
 
 class MineralModelTests(TestCase):

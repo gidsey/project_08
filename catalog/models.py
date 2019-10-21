@@ -1,6 +1,5 @@
 """Catalog Models."""
 from django.db import models
-from django.db import IntegrityError
 
 
 class Mineral(models.Model):

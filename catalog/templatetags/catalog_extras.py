@@ -23,4 +23,3 @@ def import_report(minerals_json_count, duplicate_count):
 def underscore_to_space(machine_name):
     """Removes underscore and replace with a SPACE"""
     return machine_name.replace('_', ' ')
-
