@@ -1,7 +1,23 @@
+from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase
 
 from catalog.models import Mineral
 from catalog import views
+
+
+class ViewsTests(TestCase):
+    """Test the views."""
+
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    def test_check_data_view_no_data(self):
+        """Check the index page is redirecting if DB contains NO data"""
+        request = self.factory.get('/')
+        response = views.check_data(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'The database is empty.')
+        self.assertNotContains(response, 'items found.')
 
 
 class MineralViewsTests(TestCase):
@@ -22,6 +38,12 @@ class MineralViewsTests(TestCase):
             streak="White to brownish",
             group='Organic Minerals',
         )
+
+    def test_check_data_view(self):
+        """Check the index page is redirecting if DB contains data"""
+        request = self.factory.get('/')
+        response = views.check_data(request)
+        self.assertEqual(response.status_code, 302)
 
     def test_letter_filter_view(self):
         """
