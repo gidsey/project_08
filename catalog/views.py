@@ -1,5 +1,6 @@
 """Catalog Views."""
 import random
+import os
 
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -8,6 +9,8 @@ from django.shortcuts import get_object_or_404, render
 from . import utils
 from .models import Mineral
 
+# CONSTANTS
+DATA_SOURCE = os.path.join(os.getcwd(), 'catalog/data/minerals.json')
 # Get the ORDERED_FIELDS, GROUPS, STREAKS and IDS once and save them as constants.
 ORDERED_FIELDS = utils.get_popular()
 list_items = utils.list_itmes()
@@ -27,9 +30,9 @@ def check_data(request):
 
 def import_minerals(request):
     """Import all minerals from JSON to DB."""
-    data = utils.get_data()
-    minerals_json_count = data[0]
-    duplicate_count = data[1]
+    data = utils.get_data(DATA_SOURCE)
+    minerals_json_count = data['minerals_json_count']
+    duplicate_count = data['duplicate_count']
     minerals = Mineral.objects.all().order_by('id')
     return render(request, 'catalog/import.html',
                   {'import': True,

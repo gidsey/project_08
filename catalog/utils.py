@@ -1,7 +1,5 @@
 """Catalog Utils."""
-
 import json
-import os
 
 from django.utils.text import slugify
 from operator import itemgetter
@@ -9,14 +7,16 @@ from operator import itemgetter
 from .models import Mineral
 
 
-def get_data():
+def get_data(data_source):
     """Get the data from JSON, write to the DB and return No. of records in JSON file."""
-    data_source = os.path.join(os.getcwd(), 'catalog/data/minerals.json')
     try:
         with open(data_source) as file:
             minerals_json = json.load(file)
-            errors = Mineral.add_mineral(minerals_json)
-            return [len(minerals_json), errors]
+            duplicate_count = Mineral.add_mineral(minerals_json)
+            return {
+                'minerals_json_count': len(minerals_json),
+                'duplicate_count': duplicate_count
+            }
     except ConnectionResetError:
         pass
 

@@ -1,6 +1,4 @@
-from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase
-from django.urls import reverse
 
 from catalog.models import Mineral
 from catalog import views
@@ -10,21 +8,21 @@ class ImportViewsTests(TestCase):
     """Test the views."""
 
     def setUp(self):
+        #  Every test needs access to the request factory.
         self.factory = RequestFactory()
 
     def test_check_data_view_no_data(self):
         """Check the index page is redirecting if DB contains NO data"""
-        # request = self.factory.get('/')
-        # response = views.check_data(request)
-        response = self.client.get(reverse('catalog:check_data'))
+        request = self.factory.get('/')
+        response = views.check_data(request)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'The database is empty.')
         self.assertNotContains(response, 'items found.')
 
     def test_import_minerals_view(self):
-        response = self.client.get(reverse('catalog:import'))
+        request = self.factory.get('import/')
+        response = views.check_data(request)
         self.assertEqual(response.status_code, 200)
-        self.assertIn(response.context['minerals_json_count'])
 
 
 class MineralViewsTests(TestCase):
