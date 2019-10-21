@@ -51,6 +51,7 @@ def list_itmes():
     - A list of streaks with their full name and slug saved in a tuple.
     - A list of all mineral IDs.
     """
+    print('list_itmes called!')
     groups = []
     streaks = []
     group_set = sorted(set(Mineral.objects.all().values_list('group', flat=True)))

@@ -9,14 +9,14 @@ from django.shortcuts import get_object_or_404, render
 from . import utils
 from .models import Mineral
 
-# CONSTANTS
-DATA_SOURCE = os.path.join(os.getcwd(), 'catalog/data/minerals.json')
+# DATA_SOURCE = os.path.join(os.getcwd(), 'catalog/data/minerals.json')
+DATA_SOURCE = os.path.join(os.getcwd(), 'catalog/data/test.json')
 # Get the ORDERED_FIELDS, GROUPS, STREAKS and IDS once and save them as constants.
-ORDERED_FIELDS = utils.get_popular()
 list_items = utils.list_itmes()
 GROUPS = list_items['groups']
 STREAKS = list_items['streaks']
 IDS = list_items['ids']
+ORDERED_FIELDS = utils.get_popular()
 
 
 def check_data(request):
@@ -34,12 +34,13 @@ def import_minerals(request):
     minerals_json_count = data['minerals_json_count']
     duplicate_count = data['duplicate_count']
     minerals = Mineral.objects.all().order_by('id')
+    ordered_fields = utils.get_popular()
     return render(request, 'catalog/import.html',
                   {'import': True,
                    'minerals_json_count': minerals_json_count,
                    'duplicate_count': duplicate_count,
                    'minerals': minerals,
-                   'ordered_fields': ORDERED_FIELDS})
+                   'ordered_fields': ordered_fields})
 
 
 def mineral_list(request, name_filter='a'):
