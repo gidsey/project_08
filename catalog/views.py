@@ -93,7 +93,6 @@ def mineral_detail(request, pk):
     random_mineral = random.choice(utils.get_ids())
     mineral = get_object_or_404(Mineral, pk=pk)
     ordered_fields = utils.get_popular(request)
-    print(ordered_fields)
     field_list = mineral.get_fields(ordered_fields)
     return render(request, 'catalog/detail.html', {
                 'mineral': mineral,

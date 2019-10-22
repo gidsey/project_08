@@ -1,3 +1,4 @@
+from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import RequestFactory, TestCase
 
 from catalog.models import Mineral
@@ -56,6 +57,11 @@ class MineralViewsTests(TestCase):
         letter 'b' used as filter
         """
         request = self.factory.get('list/letter/')
+
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+
         response = views.mineral_list(request, **{'name_filter': 'b'})
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, self.axinite.name)
@@ -68,6 +74,11 @@ class MineralViewsTests(TestCase):
         """
 
         request = self.factory.get('list/group/')
+
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+
         response = views.mineral_group(request, **{'group_filter': 'organic-minerals'})
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, self.axinite.name)
@@ -79,6 +90,11 @@ class MineralViewsTests(TestCase):
         'white-to-greyish-white' used as slugified filter
         """
         request = self.factory.get('list/group/')
+
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+
         response = views.mineral_streak(request, **{'streak_filter': 'white-to-greyish-white'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.axinite.name)
@@ -90,6 +106,11 @@ class MineralViewsTests(TestCase):
         'Greyish' used as serach term
         """
         request = self.factory.get('search/', {'q': 'Greyish'})
+
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+
         response = views.search(request)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.axinite.name)
@@ -100,6 +121,11 @@ class MineralViewsTests(TestCase):
         Test the detail view
         """
         request = self.factory.get('detail/')
+
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+
         response = views.mineral_detail(request, **{'pk':  self.barstowite.pk})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.barstowite.name)
