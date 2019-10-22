@@ -9,8 +9,8 @@ from django.shortcuts import get_object_or_404, render
 from . import utils
 from .models import Mineral
 
-# DATA_SOURCE = os.path.join(os.getcwd(), 'catalog/data/minerals.json')
-DATA_SOURCE = os.path.join(os.getcwd(), 'catalog/data/test.json')
+DATA_SOURCE = os.path.join(os.getcwd(), 'catalog/data/minerals.json')
+# DATA_SOURCE = os.path.join(os.getcwd(), 'catalog/data/test.json')
 
 
 def check_data(request):
