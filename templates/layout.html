@@ -22,7 +22,7 @@
     <h2 class="cat-title">Groups</h2>
     <ul class="group-list">
         {% for group in groups %}
-            <li class="group-label {% if group_filter == group.1 %}active{% endif %}">
+            <li class="group-label {% if search_term == group.0 %}active{% endif %}">
                 <a href="{% url 'catalog:group_list' group_filter=group.1 %}">{{ group.0 }}</a>
             </li>
         {% endfor %}
@@ -32,7 +32,7 @@
     <h2 class="cat-title">Streak</h2>
     <ul class="group-list">
     {% for streak in streaks %}
-            <li class="group-label {% if streak_filter == streak.1 %}active{% endif %}">
+            <li class="group-label {% if search_term == streak.0 %}active{% endif %}">
                 <a href="{% url 'catalog:streak_list' streak_filter=streak.1 %}">{{ streak.0 }}</a>
             </li>
         {% endfor %}
@@ -56,7 +56,7 @@
 </a>
 <p class="logo__text text-centered">So much more than rocks.</p>
 </div>
-{#{{ request.resolver_match }}#}
+
 {% if not import %}
 
     {% for letter in 'abcdefghijklmnopqrstuvwxyz' %}
