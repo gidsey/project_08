@@ -14,7 +14,7 @@ DATA_SOURCE = os.path.join(os.getcwd(), 'catalog/data/minerals.json')
 
 
 def check_data(request):
-    """Check if the database contains data and redirect accordingly"""
+    """Check if the database contains data and redirect accordingly."""
     minerals = Mineral.objects.all().order_by('id')
     if minerals:
         return HttpResponseRedirect('/list')
@@ -59,7 +59,6 @@ def mineral_group(request, group_filter):
     search_term = [item[0] for item in groups if group_filter in item][0]  # Get the de-slugified search term
     mineral_filtered = Mineral.objects.filter(group__iexact=search_term).order_by('id')
     num_in_group = mineral_filtered.count()
-
     return render(request, 'catalog/list.html', {
         'search_term': search_term,
         'mineral_filtered': mineral_filtered,
@@ -77,7 +76,6 @@ def mineral_streak(request, streak_filter):
     search_term = [item[0] for item in streaks if streak_filter in item][0]  # Get the de-slugified search term
     mineral_filtered = Mineral.objects.filter(streak__iexact=search_term).order_by('id')
     num_in_group = mineral_filtered.count()
-
     return render(request, 'catalog/list.html', {
         'search_term': search_term,
         'mineral_filtered': mineral_filtered,

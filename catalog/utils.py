@@ -22,7 +22,12 @@ def get_data(data_source):
 
 
 def get_popular(request):
-    """Return the fields listed in order of most used."""
+    """
+    Get the fields listed in order of most used.
+    :param request:
+    :return: list tuples each containing frequency and field name
+    """
+    """"""
     if not request.session.get('ordered_fields', None):
         ordered_fields = [('category', len(Mineral.objects.exclude(category=''))),
                           ('formula', len(Mineral.objects.exclude(formula=''))),
@@ -48,35 +53,17 @@ def get_popular(request):
     return ordered_fields
 
 
-# def list_itmes():
-#     """
-#     Query the DB and return:
-#     - A list of groups with their full name and slug saved in a tuple.
-#     - A list of streaks with their full name and slug saved in a tuple.
-#     - A list of all mineral IDs.
-#     """
-#     groups = []
-#     streaks = []
-#     group_set = sorted(set(Mineral.objects.all().values_list('group', flat=True)))
-#     streak_set = sorted(set(Mineral.objects.all().values_list('streak', flat=True)))
-#     for group in group_set:
-#         groups.append((group, slugify(group)))
-#     for streak in streak_set:
-#         if streak != '':
-#             streaks.append((streak, slugify(streak)))
-#     ids = Mineral.objects.all().values_list('id', flat=True)
-#     return {
-#         'groups': groups,
-#         'streaks': streaks,
-#         'ids': ids,
-#         }
-
-
 def get_ids():
+    """Return the IDs of all minerals in the DB."""
     return Mineral.objects.all().values_list('id', flat=True)
 
 
 def get_groups(request):
+    """
+    Get the groups from the DB and save to a session variable.
+    :param request:
+    :return: list tuples each containing group name and group slug
+    """
     if not request.session.get('groups', None):
         groups = []
         group_set = sorted(set(Mineral.objects.all().values_list('group', flat=True)))
@@ -89,6 +76,11 @@ def get_groups(request):
 
 
 def get_streaks(request):
+    """
+    Get the streaks from the DB and save to a session variable.
+    :param request:
+    :return: list tuples each containing streak name and group slug
+    """
     if not request.session.get('streaks', None):
         streaks = []
         streak_set = sorted(set(Mineral.objects.all().values_list('streak', flat=True)))
