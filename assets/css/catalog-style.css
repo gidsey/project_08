@@ -184,3 +184,7 @@ input[type=text] {
 .shift {
     margin-left:200px;
 }
+
+.mineral_single {
+    display: inline-block!important;
+}

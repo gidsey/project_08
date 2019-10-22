@@ -39,7 +39,7 @@
                 <ul class="minerals__container minerals__container_ext">
                     {% for mineral in mineral_filtered %}
                         <li class="minerals__item">
-                            <a class="minerals__anchor"
+                            <a class="minerals__anchor mineral_single"
                                href="{% url 'catalog:detail' pk=mineral.pk %}">{{ mineral|safe }}</a>
                         </li>
                     {% endfor %}</ul>
