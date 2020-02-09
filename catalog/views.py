@@ -102,7 +102,7 @@ def mineral_detail(request, pk):
 
 
 def search(request):
-    """Search view. Perform a keyword serach across all fields."""
+    """Search view. Perform a keyword search across all fields."""
     random_mineral = random.choice(utils.get_ids())
     term = request.GET.get('q')
     mineral_filtered = Mineral.objects.filter(
