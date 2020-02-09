@@ -36,8 +36,8 @@ pip install -r requirements.txt
  python manage.py runserver
 ```
 
-The site will be visible at http://127.0.0.1:8000/
-The admin site will be at: http://127.0.0.1:8000/admin
+The site will be visible at http://127.0.0.1:8001/
+The admin site will be at: http://127.0.0.1:8001/admin
 
 
 ## Tests
