@@ -50,6 +50,12 @@ The project includes unit tests which cover:
 * Data import
 
 
+## Future Development Tasks
+* Upgrade to Django 3.0.3
+* Add Django Rest Framework (DRF)
+* Create APIs
+
+
 ## Attributions
 
 Project built by [Chris Guy](https://www.linkedin.com/in/gidsey/), October 2019
